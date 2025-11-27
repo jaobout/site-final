@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Agendar — Bout Art Concept</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@300;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0b0b0b; --muted:#cfcfcf; --accent:#2979ff; --gold:#ffd400; --whatsapp:#25D366; }
+  *{box-sizing:border-box}
+  body{ margin:0; font-family:Nunito,system-ui; background:#070707; color:#fff; -webkit-font-smoothing:antialiased;}
+  .wrap{ max-width:720px; margin:18px auto; padding:16px; }
+  header{ text-align:center; padding:8px 0; }
+  .logo{ width:64px; height:64px; margin:0 auto 8px auto; border-radius:10px; object-fit:cover; }
+  h1{ font-family:'Bangers'; color:var(--gold); margin:6px 0; font-size:1.6rem; }
+  .card{ background:rgba(255,255,255,0.02); padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03); margin-top:12px; }
+  label{ display:block; font-weight:700; margin:10px 0 6px 0; color:var(--muted); font-size:0.95rem; }
+  input[type=text], select, textarea{ width:100%; padding:10px;border-radius:10px;border:none;background:#0f0f0f;color:#fff; font-size:1rem; }
+  .notice{ color:var(--gold); font-weight:800; margin-top:8px; font-size:0.95rem; }
+  .btn{ display:block; text-align:center; padding:12px; border-radius:12px; font-weight:900; text-decoration:none; color:#fff; margin-top:12px; }
+  .btn-pay{ background:var(--whatsapp); }
+  .btn-back{ background:linear-gradient(90deg,var(--accent),#1877d3); margin-top:8px; }
+  .small{ font-size:0.86rem; color:var(--muted); margin-top:8px; }
+  @media(max-width:480px){ .wrap{ padding:12px } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="midia/logo/logo.png" alt="logo" class="logo">
+      <h1>Agendar — Bout Art</h1>
+      <div class="small">Preencha os dados e finalize no WhatsApp</div>
+    </header>
+
+    <div class="card">
+      <label for="nome">Seu nome</label>
+      <input id="nome" type="text" placeholder="Como prefere ser chamado" />
+
+      <label for="tel">Telefone (opcional)</label>
+      <input id="tel" type="text" placeholder="(21) 9xxxx-xxxx" />
+
+      <label for="servico">Serviço</label>
+      <input id="servico" type="text" readonly />
+
+      <label for="turno">Turno</label>
+      <select id="turno">
+        <option>Manhã</option>
+        <option>Tarde</option>
+        <option>Noite</option>
+      </select>
+
+      <div class="notice">Horário marcado com taxa de R$5,00 (pagamento antecipado).</div>
+
+      <a id="btnEnviar" class="btn btn-pay" href="#">💬 Confirmar e Abrir WhatsApp</a>
+      <a href="index.html" class="btn btn-back">◀ Voltar para serviços</a>
+
+      <div class="small">Horário só garantido após pagamento antecipado.</div>
+    </div>
+  </div>
+
+<script>
+  // captura ?servico=...
+  function getQueryParam(name){
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name);
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    const serv = getQueryParam('servico');
+    if(serv){
+      document.getElementById('servico').value = decodeURIComponent(serv);
+    }
+
+    document.getElementById('btnEnviar').addEventListener('click', function(e){
+      e.preventDefault();
+      const nome = document.getElementById('nome').value.trim() || 'Cliente';
+      const tel = document.getElementById('tel').value.trim();
+      const servico = document.getElementById('servico').value || 'Serviço não especificado';
+      const turno = document.getElementById('turno').value;
+      const mensagem = `Olá! Meu nome é ${nome}. Gostaria de agendar: ${servico} no turno ${turno}.`;
+      const wa = 'https://wa.me/5521978893270?text=' + encodeURIComponent(mensagem);
+      window.location.href = wa;
+    });
+  });
+</script>
+</body>
+</html>
