@@ -10,230 +10,245 @@
 <style>
 /* 🎨 Cores e Variáveis Otimizadas para Mobile Dark Mode */
 :root{
-  --bg:#030303;
-  --grafite:#0c0c0c;
-  --blue:#2979ff;
-  --gold:#FFC107; 
-  --muted:#a0a0a0;
-  --whatsapp:#25D366;
-  --card-alpha: rgba(255,255,255,0.06);
-  --font-title: 'Bangers', cursive;
-  --font-body: 'Nunito', system-ui, sans-serif;
+  --bg:#030303;
+  --grafite:#0c0c0c;
+  --blue:#2979ff;
+  --gold:#FFC107; 
+  --muted:#a0a0a0;
+  --whatsapp:#25D366;
+  --card-alpha: rgba(255,255,255,0.06);
+  --font-title: 'Bangers', cursive;
+  --font-body: 'Nunito', system-ui, sans-serif;
 }
 
 /* Fundo animado (Adição de Vinheta) */
 body::before {
-  content:"";
-  position:fixed;
-  inset:0;
-  background:url("midia/fundo/fundo1.jpg") center/cover no-repeat fixed;
-  opacity:.15;
-  z-index:-1;
-  animation:moveBg 18s linear infinite alternate;
-  filter:blur(1px);
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("midia/fundo/fundo1.jpg") center/cover no-repeat fixed;
+  opacity:.15;
+  z-index:-1;
+  animation:moveBg 18s linear infinite alternate;
+  filter:blur(1px);
 }
 /* Vinheta para dar foco no centro */
 body::after{
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(circle at center, transparent 30%, var(--bg) 95%);
-    z-index: -1;
-    pointer-events: none;
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 30%, var(--bg) 95%);
+    z-index: -1;
+    pointer-events: none;
 }
 @keyframes moveBg {
-  0%{transform:scale(1) translateY(0);}
-  100%{transform:scale(1.08) translateY(-20px);}
+  0%{transform:scale(1) translateY(0);}
+  100%{transform:scale(1.08) translateY(-20px);}
 }
 
 /* Base */
 *{box-sizing:border-box}
 body{
-  margin:0;
-  background:linear-gradient(180deg,var(--bg),#000);
-  color:#fff;
-  font-family:var(--font-body);
+  margin:0;
+  background:linear-gradient(180deg,var(--bg),#000);
+  color:#fff;
+  font-family:var(--font-body);
 }
 h2{
-    margin-top:30px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Divisor visual */
-    color:var(--gold);
-    font-family:var(--font-title);
-    letter-spacing: 1px;
+    margin-top:30px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Divisor visual */
+    color:var(--gold);
+    font-family:var(--font-title);
+    letter-spacing: 1px;
 }
 h3{margin:0;}
 a{color:inherit;text-decoration:none;}
 
 /* Container Centralizado (Para dar respiro nas laterais) */
 .content-container{
-    max-width: 420px; /* Largura máxima para mobile */
-    margin: 0 auto;
-    padding: 0 16px;
+    max-width: 420px; /* Largura máxima para mobile */
+    margin: 0 auto;
+    padding: 0 16px;
 }
 
-/* Header (Mantido) */
+/* Header (Ajustes de tamanho da logo e texto) */
 header{
-  display:flex;
-  align-items:center;
-  padding:16px 0;
-  background:linear-gradient(180deg,var(--grafite),transparent);
-  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  padding:16px 0;
+  background:linear-gradient(180deg,var(--grafite),transparent);
+  margin-bottom:10px;
 }
-/* Estilos do header precisam estar dentro do .content-container para alinhamento */
-header .logo-wrap{ padding: 0 16px;}
+.logo-wrap img{
+  width:32px; /* FINAL: Logo bem pequena */
+  height:32px;
+  border-radius:6px;
+  object-fit:cover;
+}
+.studio-title{
+  font-family:var(--font-title);
+  color:var(--gold);
+  font-size:1.2rem; /* FINAL: Título reduzido */
+  line-height: 1;
+}
+.studio-sub{
+  color:var(--muted);
+  font-size:.65rem; /* FINAL: Subtítulo reduzido */
+  line-height: 1;
+}
 
 
-/* Frase de Destaque (Novo Estilo) */
+/* Frase de Destaque */
 .quote-highlight{
-    color: var(--muted);
-    font-style: italic;
-    font-size: 0.9rem;
-    margin-top: -8px;
-    margin-bottom: 20px;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-top: -8px;
+    margin-bottom: 20px;
 }
 .quote-highlight strong{
-    color: var(--gold);
-    font-weight: 900;
+    color: var(--gold);
+    font-weight: 900;
 }
 
 
-/* STORIES (Mantido) */
+/* STORIES */
 .stories{
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  padding:0;
-  margin-top:12px;
-  margin-bottom: 24px; /* Mais espaço após stories */
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:0;
+  margin-top:12px;
+  margin-bottom: 24px;
 }
 .story{
-  min-width:140px;
-  height:220px;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  min-width:140px;
+  height:220px;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 .story video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 
-/* GALERIA (Compacta e Harmonizada com Stories) */
+/* GALERIA (Compacta e Integrada) */
 .galeria-container{
-  max-width: 380px;
-  width: 100%; 
-  margin:24px auto 10px auto;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 0 20px rgba(0,0,0,.5);
+  max-width: 380px; /* FINAL: Largura máxima para deixar compacto */
+  width: 100%; 
+  margin:24px auto 10px auto;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 0 20px rgba(0,0,0,.5);
 }
 .galeria-slide img{
-  width:100%;
-  height:220px; /* Igual a Stories */
-  object-fit:contain; /* Mostra a imagem inteira */
-  background-color: var(--grafite); /* Cor de fundo para o espaço vazio */
+  width:100%;
+  height:220px; /* FINAL: Altura igual a Stories */
+  object-fit:contain; /* FINAL: Imagem inteira, sem cortar */
+  background-color: var(--grafite);
 }
 .prev,.next{
-  cursor:pointer;
-  position:absolute;
-  top:50%;
-  padding:10px 14px;
-  font-size:20px;
-  color:var(--gold);
-  user-select:none;
-  background:rgba(0,0,0,.3);
-  transform:translateY(-50%);
-  transition:.2s;
+  cursor:pointer;
+  position:absolute;
+  top:50%;
+  padding:10px 14px;
+  font-size:20px;
+  color:var(--gold);
+  user-select:none;
+  background:rgba(0,0,0,.3);
+  transform:translateY(-50%);
+  transition:.2s;
 }
 .prev{left:0;border-radius:0 4px 4px 0;}
 .next{right:0;border-radius:4px 0 0 4px;}
 .prev:hover,.next:hover{background:rgba(0,0,0,.6);}
 
 
-/* Dots transformados em Dashes (Mais moderno) */
+/* Dots transformados em Dashes */
 .dot{
-  height:4px; /* Mais fino */
-  width:20px; /* Mais largo (formato de traço/dash) */
-  margin:0 4px;
-  background:#444;
-  display:inline-block;
-  border-radius:2px;
-  cursor:pointer;
-  transition: .3s;
+  height:4px;
+  width:20px;
+  margin:0 4px;
+  background:#444;
+  display:inline-block;
+  border-radius:2px;
+  cursor:pointer;
+  transition: .3s;
 }
 .active,.dot:hover{background:var(--gold);}
 
 
 /* Serviços (Com efeito Neumorfismo Escuro) */
 .services-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:16px;
-  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:16px;
+  margin-top:20px;
 }
 .card-service{
-  background:var(--grafite);
-  border-radius:12px;
-  padding:0;
-  text-align:center;
-  border:none;
-  transition:.3s;
-  box-shadow: 
-    5px 5px 10px rgba(0, 0, 0, 0.5),
-    -5px -5px 10px rgba(40, 40, 40, 0.1);
+  background:var(--grafite);
+  border-radius:12px;
+  padding:0;
+  text-align:center;
+  border:none;
+  transition:.3s;
+  box-shadow: 
+    5px 5px 10px rgba(0, 0, 0, 0.5),
+    -5px -5px 10px rgba(40, 40, 40, 0.1);
 }
 .card-service:hover{
-  transform:scale(1.03) translateY(-2px); 
-  border-color:transparent;
-  box-shadow: 
-    0 0 20px rgba(41, 121, 255, 0.5);
+  transform:scale(1.03) translateY(-2px); 
+  border-color:transparent;
+  box-shadow: 
+    0 0 20px rgba(41, 121, 255, 0.5);
 }
 .service-img{
-  width:100%;
-  height:100px;
-  object-fit:cover;
-  border-radius:12px 12px 0 0;
+  width:100%;
+  height:100px;
+  object-fit:cover;
+  border-radius:12px 12px 0 0;
 }
 .service-title{
-  font-size: 1.1rem;
-  font-weight: 900;
-  color: var(--gold);
-  padding-top: 10px;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--gold);
+  padding-top: 10px;
 }
 .service-desc{
-  font-size: .8rem;
-  color: var(--muted);
-  margin-top: 2px;
+  font-size: .8rem;
+  color: var(--muted);
+  margin-top: 2px;
 }
 .service-price{
-  font-size: .8rem;
-  font-weight: 900;
-  color: #fff;
-  padding-bottom: 10px;
-  padding-top: 4px;
+  font-size: .8rem;
+  font-weight: 900;
+  color: #fff;
+  padding-bottom: 10px;
+  padding-top: 4px;
 }
 
 /* Botões de Ação (Com mais destaque) */
 .action-row{
-  display:flex;
-  gap:10px;
-  margin:30px 0;
+  display:flex;
+  gap:10px;
+  margin:30px 0;
 }
 .btn-whatsapp, .btn-maps{
-  flex:1;
-  display:flex;
-  justify-content:center;
-  align-items: center;
-  padding:15px 10px; 
-  color:#fff;
-  text-decoration:none;
-  font-weight:900;
-  font-size: 1rem;
-  border-radius:12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5); 
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  padding:15px 10px; 
+  color:#fff;
+  text-decoration:none;
+  font-weight:900;
+  font-size: 1rem;
+  border-radius:12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5); 
 }
 .btn-whatsapp{background:var(--whatsapp);}
 .btn-maps{background:var(--blue);}
@@ -246,131 +261,130 @@ footer{text-align:center;color:var(--muted);padding:25px; font-size: .8rem;}
 <body>
 
 <header>
-  <div class="content-container"> 
-    <div class="logo-wrap">
-      <img src="midia/logo/logo.jpeg" alt="logo">
-      <div>
-        <div class="studio-title">Bout Art Concept</div>
-        <div class="studio-sub">Urban Premium • Cortes & Barba</div>
-      </div>
-    </div>
-  </div>
+  <div class="content-container"> 
+    <div class="logo-wrap" style="gap: 8px;">       <img src="midia/logo/logo.jpeg" alt="logo">
+      <div>
+        <div class="studio-title">Bout Art Concept</div>
+        <div class="studio-sub">Urban Premium • Cortes & Barba</div>
+      </div>
+    </div>
+  </div>
 </header>
 
 <main>
-  <div class="content-container">
+  <div class="content-container">
 
-    <h2>Bem-vindo</h2>
-    <p class="quote-highlight">
-        Seu estilo é a nossa arte. Aqui você encontra as <strong>melhores inspirações</strong> para o seu próximo corte.
-    </p>
+    <h2>Bem-vindo</h2>
+    <p class="quote-highlight">
+        Seu estilo é a nossa arte. Aqui você encontra as <strong>melhores inspirações</strong> para o seu próximo corte.
+    </p>
 
-    <div class="stories">
-      <div class="story"><video src="midia/videos/video1.mp4" autoplay muted loop></video></div>
-      <div class="story"><video src="midia/videos/video2.mp4" autoplay muted loop></video></div>
-      <div class="story"><video src="midia/videos/video3.mp4" autoplay muted loop></video></div>
-    </div>
+    <div class="stories">
+      <div class="story"><video src="midia/videos/video1.mp4" autoplay muted loop></video></div>
+      <div class="story"><video src="midia/videos/video2.mp4" autoplay muted loop></video></div>
+      <div class="story"><video src="midia/videos/video3.mp4" autoplay muted loop></video></div>
+    </div>
 
-    <h2>Galeria de Cortes</h2>
+    <h2>Galeria de Cortes</h2>
 
-    <div class="galeria-container">
+    <div class="galeria-container">
 
-      <div class="galeria-slide fade"><img src="midia/galeria/foto1.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto2.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto3.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto4.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto5.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto6.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto7.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto8.jpg"></div>
+      <div class="galeria-slide fade"><img src="midia/galeria/foto1.jpg"></div>
+      <div class="galeria-slide fade"><img src="midia/galeria/foto2.jpg"></div>
+      <div class="galeria-slide fade"><img src="midia/galeria/foto3.jpg"></div>
+      <div class="galeria-slide fade"><img src="midia/galeria/foto4.jpg"></div>
+      <div class="galeria-slide fade"><img src="midia/galeria/foto5.jpg"></div>
+      <div class="galeria-slide fade"><img src="midia/galeria/foto6.jpg"></div>
+      <div class="galeria-slide fade"><img src="midia/galeria/foto7.jpg"></div>
+      <div class="galeria-slide fade"><img src="midia/galeria/foto8.jpg"></div>
 
-      <a class="prev" onclick="plusSlides(-1)">❮</a>
-      <a class="next" onclick="plusSlides(1)">❯</a>
-    </div>
+      <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
 
-    <div style="text-align:center;margin-top:8px;">
-      <span class="dot" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(2)"></span>
-      <span class="dot" onclick="currentSlide(3)"></span>
-      <span class="dot" onclick="currentSlide(4)"></span>
-      <span class="dot" onclick="currentSlide(5)"></span>
-      <span class="dot" onclick="currentSlide(6)"></span>
-      <span class="dot" onclick="currentSlide(7)"></span>
-      <span class="dot" onclick="currentSlide(8)"></span>
-    </div>
+    <div style="text-align:center;margin-top:8px;">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+      <span class="dot" onclick="currentSlide(4)"></span>
+      <span class="dot" onclick="currentSlide(5)"></span>
+      <span class="dot" onclick="currentSlide(6)"></span>
+      <span class="dot" onclick="currentSlide(7)"></span>
+      <span class="dot" onclick="currentSlide(8)"></span>
+    </div>
 
-    <h2>Nossos Serviços</h2>
-    <div class="services-grid">
+    <h2>Nossos Serviços</h2>
+    <div class="services-grid">
 
-      <a class="card-service" href="agendar.html?servico=Corte%20Simples">
-        <img class="service-img" src="midia/fotos/foto1.jpg" alt="Corte Simples">
-        <h3 class="service-title">Corte Simples</h3>
-        <div class="service-desc">Corte rápido e alinhado.</div>
-        <div class="service-price">R$15</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Corte%20Social">
-        <img class="service-img" src="midia/fotos/foto2.jpg" alt="Corte Social">
-        <h3 class="service-title">Corte Social</h3>
-        <div class="service-desc">Clássico e bem polido.</div>
-        <div class="service-price">R$25</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Corte%20Disfarcado">
-        <img class="service-img" src="midia/fotos/foto3.jpg" alt="Disfarçado">
-        <h3 class="service-title">Corte Disfarcado</h3>
-        <div class="service-desc">Degradê moderno.</div>
-        <div class="service-price">R$35</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Acabamento">
-        <img class="service-img" src="midia/fotos/foto4.jpg" alt="Acabamento">
-        <h3 class="service-title">Acabamento</h3>
-        <div class="service-desc">Contornos e limpeza.</div>
-        <div class="service-price">R$10</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Barba%20Simples">
-        <img class="service-img" src="midia/fotos/foto5.jpg" alt="Barba Simples">
-        <h3 class="service-title">Barba Simples</h3>
-        <div class="service-desc">Limpeza básica.</div>
-        <div class="service-price">R$10</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Barba%20Modelada">
-        <img class="service-img" src="midia/fotos/foto6.jpg" alt="Barba Modelada">
-        <h3 class="service-title">Barba Modelada</h3>
-        <div class="service-desc">Design marcado.</div>
-        <div class="service-price">R$15</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Pigmentação">
-        <img class="service-img" src="midia/fotos/foto7.jpg" alt="Pigmentação">
-        <h3 class="service-title">Pigmentação</h3>
-        <div class="service-desc">Reforço de cor.</div>
-        <div class="service-price">R$10</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Sobrancelha">
-        <img class="service-img" src="midia/fotos/foto8.jpg" alt="Sobrancelha">
-        <h3 class="service-title">Sobrancelha</h3>
-        <div class="service-desc">Limpeza e definição.</div>
-        <div class="service-price">R$5</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Bigode">
-        <img class="service-img" src="midia/fotos/foto9.jpg" alt="Bigode">
-        <h3 class="service-title">Bigode</h3>
-        <div class="service-desc">Acabamento fino.</div>
-        <div class="service-price">R$5</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Platinado">
-        <img class="service-img" src="midia/fotos/foto10.jpg" alt="Platinado">
-        <h3 class="service-title">Platinado</h3>
-        <div class="service-desc">Processo detalhado.</div>
-        <div class="service-price">Consultar</div>
-      </a>
-      
-    </div>
+      <a class="card-service" href="agendar.html?servico=Corte%20Simples">
+        <img class="service-img" src="midia/fotos/foto1.jpg" alt="Corte Simples">
+        <h3 class="service-title">Corte Simples</h3>
+        <div class="service-desc">Corte rápido e alinhado.</div>
+        <div class="service-price">R$15</div>
+      </a>
+      <a class="card-service" href="agendar.html?servico=Corte%20Social">
+        <img class="service-img" src="midia/fotos/foto2.jpg" alt="Corte Social">
+        <h3 class="service-title">Corte Social</h3>
+        <div class="service-desc">Clássico e bem polido.</div>
+        <div class="service-price">R$25</div>
+      </a>
+      <a class="card-service" href="agendar.html?servico=Corte%20Disfarcado">
+        <img class="service-img" src="midia/fotos/foto3.jpg" alt="Disfarçado">
+        <h3 class="service-title">Corte Disfarcado</h3>
+        <div class="service-desc">Degradê moderno.</div>
+        <div class="service-price">R$35</div>
+      </a>
+      <a class="card-service" href="agendar.html?servico=Acabamento">
+        <img class="service-img" src="midia/fotos/foto4.jpg" alt="Acabamento">
+        <h3 class="service-title">Acabamento</h3>
+        <div class="service-desc">Contornos e limpeza.</div>
+        <div class="service-price">R$10</div>
+      </a>
+      <a class="card-service" href="agendar.html?servico=Barba%20Simples">
+        <img class="service-img" src="midia/fotos/foto5.jpg" alt="Barba Simples">
+        <h3 class="service-title">Barba Simples</h3>
+        <div class="service-desc">Limpeza básica.</div>
+        <div class="service-price">R$10</div>
+      </a>
+      <a class="card-service" href="agendar.html?servico=Barba%20Modelada">
+        <img class="service-img" src="midia/fotos/foto6.jpg" alt="Barba Modelada">
+        <h3 class="service-title">Barba Modelada</h3>
+        <div class="service-desc">Design marcado.</div>
+        <div class="service-price">R$15</div>
+      </a>
+      <a class="card-service" href="agendar.html?servico=Pigmentação">
+        <img class="service-img" src="midia/fotos/foto7.jpg" alt="Pigmentação">
+        <h3 class="service-title">Pigmentação</h3>
+        <div class="service-desc">Reforço de cor.</div>
+        <div class="service-price">R$10</div>
+      </a>
+      <a class="card-service" href="agendar.html?servico=Sobrancelha">
+        <img class="service-img" src="midia/fotos/foto8.jpg" alt="Sobrancelha">
+        <h3 class="service-title">Sobrancelha</h3>
+        <div class="service-desc">Limpeza e definição.</div>
+        <div class="service-price">R$5</div>
+      </a>
+      <a class="card-service" href="agendar.html?servico=Bigode">
+        <img class="service-img" src="midia/fotos/foto9.jpg" alt="Bigode">
+        <h3 class="service-title">Bigode</h3>
+        <div class="service-desc">Acabamento fino.</div>
+        <div class="service-price">R$5</div>
+      </a>
+      <a class="card-service" href="agendar.html?servico=Platinado">
+        <img class="service-img" src="midia/fotos/foto10.jpg" alt="Platinado">
+        <h3 class="service-title">Platinado</h3>
+        <div class="service-desc">Processo detalhado.</div>
+        <div class="service-price">Consultar</div>
+      </a>
+      
+    </div>
 
-    <div class="action-row">
-      <a class="btn-whatsapp" href="https://wa.me/5521994858475" target="_blank">💬 AGENDAR PELO WHATSAPP</a>
-      <a class="btn-maps" href="https://www.google.com/maps/dir/?api=1&destination=-22.9035,-43.2096" target="_blank">📍 COMO CHEGAR</a>
-    </div>
+    <div class="action-row">
+      <a class="btn-whatsapp" href="https://wa.me/5521994858475" target="_blank">💬 AGENDAR PELO WHATSAPP</a>
+      <a class="btn-maps" href="https://www.google.com/maps/dir/?api=1&destination=-22.9035,-43.2096" target="_blank">📍 COMO CHEGAR</a>
+    </div>
 
-  </div>
+  </div>
 </main>
 
 <footer><div class="content-container">© Bout Art Concept — Todos os direitos reservados</div></footer>
@@ -383,20 +397,20 @@ function plusSlides(n){ showSlides(slideIndex += n); }
 function currentSlide(n){ showSlides(slideIndex = n); }
 
 function showSlides(n){
-  let slides = document.getElementsByClassName("galeria-slide");
-  let dots = document.getElementsByClassName("dot");
+  let slides = document.getElementsByClassName("galeria-slide");
+  let dots = document.getElementsByClassName("dot");
 
-  if(n > slides.length) slideIndex = 1;
-  if(n < 1) slideIndex = slides.length;
+  if(n > slides.length) slideIndex = 1;
+  if(n < 1) slideIndex = slides.length;
 
-  for(let i=0;i<slides.length;i++)
-    slides[i].style.display = "none";
+  for(let i=0;i<slides.length;i++)
+    slides[i].style.display = "none";
 
-  for(let i=0;i<dots.length;i++)
-    dots[i].classList.remove("active");
+  for(let i=0;i<dots.length;i++)
+    dots[i].classList.remove("active");
 
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].classList.add("active");
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].classList.add("active");
 }
 
 setInterval(()=>plusSlides(1),4000);
