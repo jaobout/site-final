@@ -111,8 +111,10 @@ main{padding:16px;}
 }
   .galeria-slide img{
   width:100%;
-  height:200px; /* Altura ideal para mobile (resolve proporção "inepta") */
-  object-fit:cover;
+  height:220px;
+  object-fit:contain; /* ALTERADO: Garante que a imagem inteira seja visível */
+  /* Adiciona uma cor de fundo para o espaço vazio que pode surgir */
+  background-color: var(--grafite); 
 }
 .prev,.next{
   cursor:pointer;
@@ -374,4 +376,5 @@ setInterval(()=>plusSlides(1),4000);
 
 </body>
 </html>
+
 
