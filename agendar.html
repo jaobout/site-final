@@ -4,83 +4,289 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Agendar — Bout Art Concept</title>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@300;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@300;700;900&display=swap" rel="stylesheet">
 <style>
-  :root{ --bg:#0b0b0b; --muted:#cfcfcf; --accent:#2979ff; --gold:#ffd400; --whatsapp:#25D366; }
+  :root{
+    --bg:#0b0b0b;
+    --muted:#bdbdbd;
+    --gold:#ffd400;
+    --whatsapp:#25D366;
+  }
   *{box-sizing:border-box}
-  body{ margin:0; font-family:Nunito,system-ui; background:#070707; color:#fff; -webkit-font-smoothing:antialiased;}
-  .wrap{ max-width:720px; margin:18px auto; padding:16px; }
-  header{ text-align:center; padding:8px 0; }
-  .logo{ width:64px; height:64px; margin:0 auto 8px auto; border-radius:10px; object-fit:cover; }
-  h1{ font-family:'Bangers'; color:var(--gold); margin:6px 0; font-size:1.6rem; }
-  .card{ background:rgba(255,255,255,0.02); padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03); margin-top:12px; }
-  label{ display:block; font-weight:700; margin:10px 0 6px 0; color:var(--muted); font-size:0.95rem; }
-  input[type=text], select, textarea{ width:100%; padding:10px;border-radius:10px;border:none;background:#0f0f0f;color:#fff; font-size:1rem; }
-  .notice{ color:var(--gold); font-weight:800; margin-top:8px; font-size:0.95rem; }
-  .btn{ display:block; text-align:center; padding:12px; border-radius:12px; font-weight:900; text-decoration:none; color:#fff; margin-top:12px; }
-  .btn-pay{ background:var(--whatsapp); }
-  .btn-back{ background:linear-gradient(90deg,var(--accent),#1877d3); margin-top:8px; }
-  .small{ font-size:0.86rem; color:var(--muted); margin-top:8px; }
-  @media(max-width:480px){ .wrap{ padding:12px } }
+  body{
+    margin:0;
+    font-family:'Nunito',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    background: linear-gradient(180deg,#070707,#020202);
+    color:#fff;
+    -webkit-font-smoothing:antialiased;
+  }
+  header{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(180deg,#111,transparent)}
+  .logo-wrap img{width:48px;height:48px;border-radius:8px;object-fit:cover;filter:drop-shadow(0 6px 12px rgba(0,0,0,.6))}
+  .container{max-width:980px;margin:18px auto;padding:12px}
+  h1{font-family:'Bangers';color:var(--gold);margin:8px 0 6px 0}
+  p.lead{color:var(--muted);margin:0 0 12px 0}
+  .panel{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.04)}
+  .row{display:flex;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+  label{font-size:0.95rem;color:var(--muted);min-width:120px}
+  input[type="date"], select{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff}
+  .slots{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .slot{padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.04);cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
+  .slot.disabled{opacity:0.35;cursor:not-allowed;border-style:dashed}
+  .slot:hover:not(.disabled){transform:translateY(-4px);box-shadow:0 10px 20px rgba(0,0,0,0.6)}
+  .note{font-size:0.9rem;color:var(--muted);margin-top:10px}
+  .btn-whatsapp{
+    display:inline-flex;align-items:center;gap:10px;background:var(--whatsapp);color:#fff;padding:12px 14px;border-radius:12px;text-decoration:none;font-weight:800;
+  }
+  .error{background:#400; padding:10px;border-radius:8px;color:#ffdede;margin-top:10px}
+  @media(max-width:720px){
+    .row{flex-direction:column;align-items:stretch}
+    label{min-width:0}
+  }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <img src="midia/logo/logo.png" alt="logo" class="logo">
-      <h1>Agendar — Bout Art</h1>
-      <div class="small">Preencha os dados e finalize no WhatsApp</div>
-    </header>
 
-    <div class="card">
-      <label for="nome">Seu nome</label>
-      <input id="nome" type="text" placeholder="Como prefere ser chamado" />
-
-      <label for="tel">Telefone (opcional)</label>
-      <input id="tel" type="text" placeholder="(21) 9xxxx-xxxx" />
-
-      <label for="servico">Serviço</label>
-      <input id="servico" type="text" readonly />
-
-      <label for="turno">Turno</label>
-      <select id="turno">
-        <option>Manhã</option>
-        <option>Tarde</option>
-        <option>Noite</option>
-      </select>
-
-      <div class="notice">Horário marcado com taxa de R$5,00 (pagamento antecipado).</div>
-
-      <a id="btnEnviar" class="btn btn-pay" href="#">💬 Confirmar e Abrir WhatsApp</a>
-      <a href="index.html" class="btn btn-back">◀ Voltar para serviços</a>
-
-      <div class="small">Horário só garantido após pagamento antecipado.</div>
-    </div>
+<header>
+  <div class="logo-wrap">
+    <img src="midia/logo/logo.jpeg" alt="Bout logo">
   </div>
+</header>
+
+<div class="container">
+  <h1>Agendamento</h1>
+  <p class="lead">Escolha o serviço (caso tenha vindo do link), selecione o dia e escolha um horário disponível.</p>
+
+  <div class="panel" id="app">
+    <div class="row">
+      <label>Serviço selecionado:</label>
+      <div id="servicoName" style="font-weight:700;color:var(--gold)">— carregando —</div>
+    </div>
+
+    <div class="row">
+      <label for="dia">Dia:</label>
+      <input type="date" id="dia">
+      <small style="color:var(--muted)">Horários exibidos para o dia selecionado</small>
+    </div>
+
+    <div class="row">
+      <label>Horários disponíveis:</label>
+      <div style="flex:1">
+        <div id="slots" class="slots">Carregando horários…</div>
+        <div id="busyLegend" class="note"></div>
+      </div>
+    </div>
+
+    <div id="info" class="note">Ao confirmar, o WhatsApp será aberto com a mensagem pronta.</div>
+    <div id="error" class="error" style="display:none"></div>
+  </div>
+</div>
 
 <script>
-  // captura ?servico=...
-  function getQueryParam(name){
-    const params = new URLSearchParams(window.location.search);
-    return params.get(name);
-  }
-  document.addEventListener('DOMContentLoaded', function(){
-    const serv = getQueryParam('servico');
-    if(serv){
-      document.getElementById('servico').value = decodeURIComponent(serv);
-    }
+/*
+  agendar.html
+  - Usa o ICS público do Google Calendar (agenda pública)
+  - Calendar ID: boutwarvg@gmail.com (já embutido abaixo)
+  - Gera slots entre startHour e endHour com stepMinutes
+  - Tenta buscar o ICS e parseá-lo para determinar eventos ocupados
+  - Se falhar no fetch (CORS), mostra instruções no #error
+*/
 
-    document.getElementById('btnEnviar').addEventListener('click', function(e){
-      e.preventDefault();
-      const nome = document.getElementById('nome').value.trim() || 'Cliente';
-      const tel = document.getElementById('tel').value.trim();
-      const servico = document.getElementById('servico').value || 'Serviço não especificado';
-      const turno = document.getElementById('turno').value;
-      const mensagem = `Olá! Meu nome é ${nome}. Gostaria de agendar: ${servico} no turno ${turno}.`;
-      const wa = 'https://wa.me/5521978893270?text=' + encodeURIComponent(mensagem);
-      window.location.href = wa;
-    });
+/* --------- CONFIGURAÇÕES --------- */
+const CALENDAR_ID = 'boutwarvg%40gmail.com'; // observe: já url-encoded (@ -> %40)
+const ICS_URL = `https://calendar.google.com/calendar/ical/${CALENDAR_ID}/public/basic.ics`;
+
+// Horário de funcionamento (ajuste se quiser)
+const startHour = 9;   // 09:00
+const endHour = 19;    // 19:00
+const stepMinutes = 30; // intervalo entre horários
+
+// Número do WhatsApp (formato internacional sem +)
+const WHATSAPP_NUMBER = '5521978893270'; // já usado no site
+/* ---------------------------------- */
+
+const util = {
+  pad(n){ return n<10?('0'+n):(''+n); },
+  dateToYMD(d){ return `${d.getFullYear()}-${util.pad(d.getMonth()+1)}-${util.pad(d.getDate())}`; },
+  isoFromIcs(dtRaw){
+    // dtRaw examples: 20251203T090000Z or 20251203T090000
+    // Convert to ISO-like string: 2025-12-03T09:00:00Z  (if Z present)
+    if(!dtRaw) return null;
+    const z = dtRaw.endsWith('Z');
+    const clean = dtRaw.replace(/Z$/,'');
+    const y = clean.slice(0,4), m = clean.slice(4,6), day = clean.slice(6,8),
+          hh = clean.slice(9,11), mm = clean.slice(11,13), ss = clean.slice(13,15) || '00';
+    return `${y}-${m}-${day}T${hh}:${mm}:${ss}${z? 'Z' : ''}`;
+  },
+  overlap(aStart, aEnd, bStart, bEnd){
+    return aStart < bEnd && bStart < aEnd;
+  }
+};
+
+function getServiceFromUrl(){
+  const params = new URLSearchParams(window.location.search);
+  return params.get('servico') || '';
+}
+
+function setServiceName(){
+  const srv = decodeURIComponent(getServiceFromUrl());
+  document.getElementById('servicoName').textContent = srv || 'Nenhum (genérico)';
+}
+
+/* generate all candidate slots (Date objects) for a given date */
+function generateSlotsForDate(date){
+  const slots = [];
+  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  for(let h=startHour; h<endHour; h++){
+    for(let min=0; min<60; min+=stepMinutes){
+      const s = new Date(d.getFullYear(), d.getMonth(), d.getDate(), h, min, 0);
+      const e = new Date(s.getTime() + stepMinutes*60000);
+      slots.push({ start: s, end: e });
+    }
+  }
+  return slots;
+}
+
+/* parse ICS text, return array of events [{start:Date,end:Date,summary}] */
+function parseIcs(icsText){
+  const lines = icsText.split(/\r?\n/);
+  const events = [];
+  let inEvent = false;
+  let cur = {};
+  for(let i=0;i<lines.length;i++){
+    const L = lines[i];
+    if(L.startsWith('BEGIN:VEVENT')) { inEvent = true; cur = {}; continue; }
+    if(L.startsWith('END:VEVENT')) { inEvent = false; if(cur.dtstart && cur.dtend){ events.push(cur); } cur = {}; continue; }
+    if(!inEvent) continue;
+    // unwrap folded lines (lines starting with space are continuations) - simple approach
+    if(L.startsWith(' ')){
+      // append to last property value
+      const lastKey = Object.keys(cur).pop();
+      if(lastKey) cur[lastKey] += L.trim();
+      continue;
+    }
+    // DTSTART
+    const mStart = L.match(/^DTSTART(?:;TZID=[^:]+)?:([0-9TzZ+-]+)/i);
+    if(mStart){ cur.dtstart = util.isoFromIcs(mStart[1]); continue; }
+    const mEnd = L.match(/^DTEND(?:;TZID=[^:]+)?:([0-9TzZ+-]+)/i);
+    if(mEnd){ cur.dtend = util.isoFromIcs(mEnd[1]); continue; }
+    const mSum = L.match(/^SUMMARY:(.+)/i);
+    if(mSum){ cur.summary = mSum[1]; continue; }
+  }
+  // convert to Date objects
+  return events.map(ev => {
+    const start = ev.dtstart ? new Date(ev.dtstart) : null;
+    const end = ev.dtend ? new Date(ev.dtend) : null;
+    return { start, end, summary: ev.summary || '' };
+  }).filter(e => e.start && e.end);
+}
+
+/* filter events that occur on selected date (local) */
+function eventsOnDate(events, date){
+  // date is Date object (local)
+  const ymd = util.dateToYMD(date);
+  return events.filter(ev => {
+    // Compare by local date of start OR end (if event spans midnight, include)
+    const s = ev.start, e = ev.end;
+    if(!s || !e) return false;
+    const sYmd = util.dateToYMD(new Date(s.getFullYear(), s.getMonth(), s.getDate()));
+    const eYmd = util.dateToYMD(new Date(e.getFullYear(), e.getMonth(), e.getDate()));
+    return sYmd === ymd || eYmd === ymd || (s < date && e > date);
   });
+}
+
+/* Determine which candidate slots overlap any busy event */
+function markSlots(slots, busyEvents){
+  return slots.map(slot => {
+    const busy = busyEvents.some(ev => util.overlap(slot.start.getTime(), slot.end.getTime(), ev.start.getTime(), ev.end.getTime()));
+    return Object.assign({}, slot, { busy });
+  });
+}
+
+/* Render slots into #slots */
+function renderSlots(markedSlots){
+  const container = document.getElementById('slots');
+  container.innerHTML = '';
+  markedSlots.forEach(s => {
+    const t = `${util.pad(s.start.getHours())}:${util.pad(s.start.getMinutes())}`;
+    const btn = document.createElement('button');
+    btn.className = 'slot' + (s.busy ? ' disabled' : '');
+    btn.textContent = t;
+    if(!s.busy){
+      btn.addEventListener('click', () => confirmSlot(s));
+    }
+    container.appendChild(btn);
+  });
+}
+
+/* On confirm, open WhatsApp with prefilled message */
+function confirmSlot(slot){
+  const serv = decodeURIComponent(getServiceFromUrl()) || 'Serviço';
+  const d = slot.start;
+  const day = `${util.pad(d.getDate())}/${util.pad(d.getMonth()+1)}/${d.getFullYear()}`;
+  const time = `${util.pad(d.getHours())}:${util.pad(d.getMinutes())}`;
+  const text = `Olá! Gostaria de agendar *${serv}* para o dia ${day} às ${time}.`;
+  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+  window.open(waLink, '_blank');
+}
+
+/* fetch ICS and update UI */
+async function updateForDate(date){
+  document.getElementById('error').style.display = 'none';
+  document.getElementById('slots').textContent = 'Carregando…';
+  try{
+    const res = await fetch(ICS_URL);
+    if(!res.ok) throw new Error('Não foi possível baixar o feed iCal ('+res.status+')');
+    const text = await res.text();
+    const events = parseIcs(text);
+    // filter events that touch this date
+    const evs = events.filter(ev => {
+      // consider local date equality: we'll check if event's start or end local date matches selected date
+      const selYmd = util.dateToYMD(date);
+      const sYmd = util.dateToYMD(new Date(ev.start.getFullYear(), ev.start.getMonth(), ev.start.getDate()));
+      const eYmd = util.dateToYMD(new Date(ev.end.getFullYear(), ev.end.getMonth(), ev.end.getDate()));
+      return sYmd === selYmd || eYmd === selYmd || (ev.start < date && ev.end > date);
+    });
+    const slots = generateSlotsForDate(date);
+    // mark slots busy
+    const marked = markSlots(slots, evs);
+    renderSlots(marked);
+    const busyCount = marked.filter(s=>s.busy).length;
+    const total = marked.length;
+    document.getElementById('busyLegend').textContent = `${total - busyCount} horários livres de ${total} disponíveis.`;
+  }catch(err){
+    // show helpful guidance
+    const errBox = document.getElementById('error');
+    errBox.style.display = 'block';
+    errBox.innerHTML = `<strong>Erro ao carregar disponibilidade:</strong> ${err.message}.<br><br>
+      Possíveis causas:<br>
+      • A agenda pública não foi ativada em "Acesso de permissões" no Google Calendar (lembre-se: selecionar "Ver apenas livre/ocupado").<br>
+      • Requisição bloqueada por CORS no navegador. <br><br>
+      <em>Soluções rápidas:</em><br>
+      1) Confira se a agenda está pública e que você copiou o ID correto.<br>
+      2) Se o erro persistir por CORS, você pode criar uma <strong>API key</strong> do Google e usar a API JSON (eu te passo o código) — ou hospedar um pequeno proxy que faz fetch do ICS e entrega para o navegador.<br><br>
+      Se quiser, eu já te entrego a opção com API Key pronta para colar (eu explico como gerar a chave).</div>`;
+    document.getElementById('slots').textContent = 'Não foi possível carregar horários.';
+  }
+}
+
+/* initialize */
+function init(){
+  setServiceName();
+  // set date input to today by default
+  const diaInput = document.getElementById('dia');
+  const today = new Date();
+  diaInput.value = util.dateToYMD(today);
+  // listen for change
+  diaInput.addEventListener('change', () => {
+    const chosen = new Date(diaInput.value + 'T00:00:00');
+    updateForDate(chosen);
+  });
+  // initial load
+  updateForDate(new Date(diaInput.value + 'T00:00:00'));
+}
+
+document.addEventListener('DOMContentLoaded', init);
 </script>
+
 </body>
 </html>
