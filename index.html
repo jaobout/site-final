@@ -4,125 +4,183 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Bout Art Concept — Urban Premium</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@300;700;900&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --bg:#0b0b0b;
-    --grafite:#121212;
-    --blue:#2979ff;
-    --gold:#ffd400;
-    --muted:#bdbdbd;
-    --whatsapp:#25D366;
-    --card-alpha: rgba(255,255,255,0.04);
-    --glass: rgba(255,255,255,0.03);
-  }
+:root{
+  --bg:#0b0b0b;
+  --grafite:#121212;
+  --blue:#2979ff;
+  --gold:#ffd400;
+  --muted:#bdbdbd;
+  --whatsapp:#25D366;
+  --card-alpha: rgba(255,255,255,0.04);
+}
 
-  /* fundo animado */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: url("midia/fundo/fundo1.jpg") center/cover no-repeat fixed;
-    opacity: 0.18;
-    z-index: -1;
-    animation: moveBg 18s linear infinite alternate;
-    filter: blur(1px);
-  }
-  @keyframes moveBg {
-    0% { transform: scale(1) translateY(0px); }
-    100% { transform: scale(1.08) translateY(-20px); }
-  }
+/* Fundo animado */
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("midia/fundo/fundo1.jpg") center/cover no-repeat fixed;
+  opacity:.18;
+  z-index:-1;
+  animation:moveBg 18s linear infinite alternate;
+  filter:blur(1px);
+}
+@keyframes moveBg {
+  0%{transform:scale(1) translateY(0);}
+  100%{transform:scale(1.08) translateY(-20px);}
+}
 
-  /* mobile-first */
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    background: linear-gradient(180deg,var(--bg),#070707);
-    color:#fff;
-    font-family: 'Nunito', system-ui, sans-serif;
-  }
+/* Base */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:linear-gradient(180deg,var(--bg),#070707);
+  color:#fff;
+  font-family:'Nunito',system-ui,sans-serif;
+}
 
-  /* header */
-  header{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(180deg,var(--grafite),transparent)}
-  .logo-wrap img{width:48px;height:48px;border-radius:8px;object-fit:cover;filter:drop-shadow(0 6px 12px rgba(0,0,0,.6))}
-  .studio-title{font-weight:900;font-family:'Bangers';font-size:1.25rem;color:var(--gold);}
-  .studio-sub{font-size:0.78rem;color:var(--muted);}
+/* Header */
+header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  background:linear-gradient(180deg,var(--grafite),transparent);
+}
+.logo-wrap img{
+  width:48px;
+  height:48px;
+  border-radius:8px;
+  object-fit:cover;
+}
+.studio-title{
+  font-family:'Bangers';
+  color:var(--gold);
+  font-size:1.25rem;
+}
+.studio-sub{color:var(--muted);font-size:.78rem;}
 
-  main{padding:14px;}
+main{padding:14px;}
 
-  /* GALERIA */
-  .galeria-container {
-    max-width: 100%;
-    position: relative;
-    margin: 16px auto;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 0 25px rgba(0,0,0,.6);
-  }
-  .galeria-slide img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 14px;
-  }
-  .prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    padding: 12px;
-    color: #fff;
-    font-size: 22px;
-    font-weight: bold;
-    user-select: none;
-  }
-  .next { right: 0; }
-  .prev { left: 0; }
-  .prev:hover, .next:hover { background: rgba(0,0,0,.4); }
-  .dot {
-    height: 12px;
-    width: 12px;
-    margin: 0 4px;
-    background-color: #444;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-  }
-  .active, .dot:hover { background-color: #fff; }
-  .fade { animation: fade 1s; }
-  @keyframes fade { from{opacity:.4} to{opacity:1} }
+/* STORIES */
+.stories{
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding:8px 6px;
+}
+.story{
+  min-width:160px;
+  height:300px;
+  border-radius:16px;
+  overflow:hidden;
+}
+.story video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
 
-  /* STORIES */
-  .stories {display:flex;gap:12px;overflow-x:auto;padding:8px 6px;}
-  .story {min-width:160px;height:300px;border-radius:16px;overflow:hidden;position:relative;}
-  .story video{width:100%;height:100%;object-fit:cover;}
+/* GALERIA */
+.galeria-container{
+  width:100%;
+  max-width:100%;
+  position:relative;
+  margin:20px auto;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 0 25px rgba(0,0,0,.6);
+}
+.galeria-slide img{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+}
+.prev,.next{
+  cursor:pointer;
+  position:absolute;
+  top:50%;
+  padding:12px;
+  font-size:22px;
+  color:#fff;
+  user-select:none;
+}
+.prev{left:0;}
+.next{right:0;}
+.prev:hover,.next:hover{background:rgba(0,0,0,.4);}
+.dot{
+  height:12px;
+  width:12px;
+  margin:0 4px;
+  background:#444;
+  display:inline-block;
+  border-radius:50%;
+  cursor:pointer;
+}
+.active,.dot:hover{background:#fff;}
 
-  /* serviços */
-  .services-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:12px;
-    margin-top:16px;
-  }
-  .card-service{
-    background:var(--card-alpha);
-    border-radius:14px;
-    padding:10px;
-    text-align:center;
-    border:2px solid rgba(255,255,255,0.04);
-    transition:.18s;
-  }
-  .card-service:hover{ transform:translateY(-6px); border-color: rgba(41,121,255,0.9); }
-  .service-img{ width:100%; height:120px; object-fit:cover; border-radius:10px; margin-bottom:8px;}
+/* Serviços */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:12px;
+  margin-top:18px;
+}
+.card-service{
+  background:var(--card-alpha);
+  border-radius:14px;
+  padding:10px;
+  text-align:center;
+  border:2px solid rgba(255,255,255,0.04);
+  transition:.2s;
+}
+.card-service:hover{
+  transform:translateY(-6px);
+  border-color:rgba(41,121,255,0.9);
+}
+.service-img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:8px;
+}
 
-  /* botões */
-  .action-row{ display:flex; gap:10px; margin:18px 0; }
-  .btn-whatsapp{
-    display:flex; justify-content:center; background:var(--whatsapp); color:#fff;
-    padding:12px; border-radius:12px; font-weight:800; text-decoration:none;
-  }
+/* Botões */
+.action-row{
+  display:flex;
+  gap:10px;
+  margin:20px 0;
+}
+.btn-whatsapp{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  background:var(--whatsapp);
+  padding:12px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:800;
+  border-radius:12px;
+}
+.btn-maps{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  background:linear-gradient(90deg,var(--blue),#1877d3);
+  padding:12px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:800;
+  border-radius:12px;
+}
 
-  footer{text-align:center;color:var(--muted);padding:18px;font-size:0.85rem}
+footer{text-align:center;color:var(--muted);padding:18px;}
+
 </style>
 </head>
 
@@ -140,135 +198,129 @@
 
 <main>
 
-  <!-- BEM-VINDO -->
-  <h2 style="font-family:'Bangers';color:var(--gold);">Bem-vindo</h2>
-  <p style="color:var(--muted);font-size:0.95rem;">Escolha um vídeo e veja inspirações — depois selecione seu serviço.</p>
+<h2 style="font-family:'Bangers';color:var(--gold);">Bem-vindo</h2>
+<p style="color:var(--muted);">Escolha um vídeo e veja inspirações — depois selecione seu serviço.</p>
 
-  <!-- STORIES -->
-  <div class="stories">
-    <div class="story"><video src="midia/videos/video1.mp4" autoplay muted loop></video></div>
-    <div class="story"><video src="midia/videos/video2.mp4" autoplay muted loop></video></div>
-    <div class="story"><video src="midia/videos/video3.mp4" autoplay muted loop></video></div>
-  </div>
-
-  <!-- GALERIA DE FOTOS (8 FOTOS) -->
-  <h2 style="font-family:'Bangers';color:var(--gold);margin-top:20px;">Galeria de Cortes</h2>
-
-  <div class="galeria-container">
-
-    <div class="galeria-slide fade"><img src="midia/galeria/foto1.jpg"></div>
-    <div class="galeria-slide fade"><img src="midia/galeria/foto2.jpg"></div>
-    <div class="galeria-slide fade"><img src="midia/galeria/foto3.jpg"></div>
-    <div class="galeria-slide fade"><img src="midia/galeria/foto4.jpg"></div>
-    <div class="galeria-slide fade"><img src="midia/galeria/foto5.jpg"></div>
-    <div class="galeria-slide fade"><img src="midia/galeria/foto6.jpg"></div>
-    <div class="galeria-slide fade"><img src="midia/galeria/foto7.jpg"></div>
-    <div class="galeria-slide fade"><img src="midia/galeria/foto8.jpg"></div>
-
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-  </div>
-
-  <div style="text-align:center;margin-top:8px;">
-    <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
-    <span class="dot" onclick="currentSlide(4)"></span>
-    <span class="dot" onclick="currentSlide(5)"></span>
-    <span class="dot" onclick="currentSlide(6)"></span>
-    <span class="dot" onclick="currentSlide(7)"></span>
-    <span class="dot" onclick="currentSlide(8)"></span>
-  </div>
-
- <!-- Serviços -->
-<div style="margin-top:12px;">
-  <div class="services-grid">
-
-    <a class="card-service" href="agendar.html?servico=Corte%20Simples">
-      <img class="service-img" src="midia/fotos/foto1.jpg" alt="Corte Simples">
-      <div class="service-title">Corte Simples</div>
-      <div class="service-desc">Corte rápido, prático e alinhado.</div>
-      <div class="service-price">R$15</div>
-    </a>
-
-    <a class="card-service" href="agendar.html?servico=Corte%20Social">
-      <img class="service-img" src="midia/fotos/foto2.jpg" alt="Corte Social">
-      <div class="service-title">Corte Social</div>
-      <div class="service-desc">Do pente 1 ao 3, acabamento polido.</div>
-      <div class="service-price">R$25</div>
-    </a>
-
-    <a class="card-service" href="agendar.html?servico=Corte%20Disfarcado">
-      <img class="service-img" src="midia/fotos/foto3.jpg" alt="Disfarcado">
-      <div class="service-title">Corte Disfarcado</div>
-      <div class="service-desc">Degradê moderno e acabamento nítido.</div>
-      <div class="service-price">R$35</div>
-    </a>
-
-    <a class="card-service" href="agendar.html?servico=Acabamento">
-      <img class="service-img" src="midia/fotos/foto4.jpg" alt="Acabamento">
-      <div class="service-title">Acabamento</div>
-      <div class="service-desc">Contornos e limpeza final.</div>
-      <div class="service-price">R$10</div>
-    </a>
-
-    <a class="card-service" href="agendar.html?servico=Barba%20Simples">
-      <img class="service-img" src="midia/fotos/foto5.jpg" alt="Barba Simples">
-      <div class="service-title">Barba Simples</div>
-      <div class="service-desc">Limpeza e alinhamento básico.</div>
-      <div class="service-price">R$10</div>
-    </a>
-
-    <a class="card-service" href="agendar.html?servico=Barba%20Modelada">
-      <img class="service-img" src="midia/fotos/foto6.jpg" alt="Barba Modelada">
-      <div class="service-title">Barba Modelada</div>
-      <div class="service-desc">Formato marcado e design no rosto.</div>
-      <div class="service-price">R$15</div>
-    </a>
-
-    <a class="card-service" href="agendar.html?servico=Pigmenta%C3%A7%C3%A3o">
-      <img class="service-img" src="midia/fotos/foto7.jpg" alt="Pigmentação">
-      <div class="service-title">Pigmentação</div>
-      <div class="service-desc">Reforço de cor em entradas ou barba.</div>
-      <div class="service-price">R$10</div>
-    </a>
-
-    <a class="card-service" href="agendar.html?servico=Sobrancelha">
-      <img class="service-img" src="midia/fotos/foto8.jpg" alt="Sobrancelha">
-      <div class="service-title">Sobrancelha</div>
-      <div class="service-desc">Limpeza e definição.</div>
-      <div class="service-price">R$5</div>
-    </a>
-
-    <a class="card-service" href="agendar.html?servico=Bigode">
-      <img class="service-img" src="midia/fotos/foto9.jpg" alt="Bigode">
-      <div class="service-title">Bigode</div>
-      <div class="service-desc">Ajuste e acabamento fino.</div>
-      <div class="service-price">R$5</div>
-    </a>
-
-    <a class="card-service" href="agendar.html?servico=Platinado">
-      <img class="service-img" src="midia/fotos/foto10.jpg" alt="Platinado">
-      <div class="service-title">Platinado</div>
-      <div class="service-desc">Processo detalhado, valor sob consulta.</div>
-      <div class="service-price">Consultar</div>
-    </a>
-
-  </div>
+<!-- STORIES -->
+<div class="stories">
+  <div class="story"><video src="midia/videos/video1.mp4" autoplay muted loop></video></div>
+  <div class="story"><video src="midia/videos/video2.mp4" autoplay muted loop></video></div>
+  <div class="story"><video src="midia/videos/video3.mp4" autoplay muted loop></video></div>
 </div>
 
-<!-- Botões principais -->
-<div class="action-row" style="padding:0 12px 18px 12px;">
-  <a class="btn-whatsapp" href="https://wa.me/5521994858475" target="_blank" rel="noopener noreferrer">💬 AGENDAR PELO WHATSAPP</a>
-  <a class="btn-maps" href="https://www.google.com/maps/dir/?api=1&destination=-22.9035,-43.2096" target="_blank" rel="noopener noreferrer">📍 COMO CHEGAR</a>
+<!-- GALERIA -->
+<h2 style="font-family:'Bangers';color:var(--gold);margin-top:20px;">Galeria de Cortes</h2>
+
+<div class="galeria-container">
+
+  <div class="galeria-slide fade"><img src="midia/galeria/foto1.jpg"></div>
+  <div class="galeria-slide fade"><img src="midia/galeria/foto2.jpg"></div>
+  <div class="galeria-slide fade"><img src="midia/galeria/foto3.jpg"></div>
+  <div class="galeria-slide fade"><img src="midia/galeria/foto4.jpg"></div>
+  <div class="galeria-slide fade"><img src="midia/galeria/foto5.jpg"></div>
+  <div class="galeria-slide fade"><img src="midia/galeria/foto6.jpg"></div>
+  <div class="galeria-slide fade"><img src="midia/galeria/foto7.jpg"></div>
+  <div class="galeria-slide fade"><img src="midia/galeria/foto8.jpg"></div>
+
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
 </div>
 
+<div style="text-align:center;margin-top:8px;">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+  <span class="dot" onclick="currentSlide(4)"></span>
+  <span class="dot" onclick="currentSlide(5)"></span>
+  <span class="dot" onclick="currentSlide(6)"></span>
+  <span class="dot" onclick="currentSlide(7)"></span>
+  <span class="dot" onclick="currentSlide(8)"></span>
+</div>
+
+<!-- Serviços -->
+<div class="services-grid">
+
+  <a class="card-service" href="agendar.html?servico=Corte%20Simples">
+    <img class="service-img" src="midia/fotos/foto1.jpg" alt="Corte Simples">
+    <div class="service-title">Corte Simples</div>
+    <div class="service-desc">Corte rápido e alinhado.</div>
+    <div class="service-price">R$15</div>
+  </a>
+
+  <a class="card-service" href="agendar.html?servico=Corte%20Social">
+    <img class="service-img" src="midia/fotos/foto2.jpg" alt="Corte Social">
+    <div class="service-title">Corte Social</div>
+    <div class="service-desc">Clássico e bem polido.</div>
+    <div class="service-price">R$25</div>
+  </a>
+
+  <a class="card-service" href="agendar.html?servico=Corte%20Disfarcado">
+    <img class="service-img" src="midia/fotos/foto3.jpg" alt="Disfarçado">
+    <div class="service-title">Corte Disfarcado</div>
+    <div class="service-desc">Degradê moderno.</div>
+    <div class="service-price">R$35</div>
+  </a>
+
+  <a class="card-service" href="agendar.html?servico=Acabamento">
+    <img class="service-img" src="midia/fotos/foto4.jpg" alt="Acabamento">
+    <div class="service-title">Acabamento</div>
+    <div class="service-desc">Contornos e limpeza.</div>
+    <div class="service-price">R$10</div>
+  </a>
+
+  <a class="card-service" href="agendar.html?servico=Barba%20Simples">
+    <img class="service-img" src="midia/fotos/foto5.jpg" alt="Barba Simples">
+    <div class="service-title">Barba Simples</div>
+    <div class="service-desc">Limpeza básica.</div>
+    <div class="service-price">R$10</div>
+  </a>
+
+  <a class="card-service" href="agendar.html?servico=Barba%20Modelada">
+    <img class="service-img" src="midia/fotos/foto6.jpg" alt="Barba Modelada">
+    <div class="service-title">Barba Modelada</div>
+    <div class="service-desc">Design marcado.</div>
+    <div class="service-price">R$15</div>
+  </a>
+
+  <a class="card-service" href="agendar.html?servico=Pigmentação">
+    <img class="service-img" src="midia/fotos/foto7.jpg" alt="Pigmentação">
+    <div class="service-title">Pigmentação</div>
+    <div class="service-desc">Reforço de cor.</div>
+    <div class="service-price">R$10</div>
+  </a>
+
+  <a class="card-service" href="agendar.html?servico=Sobrancelha">
+    <img class="service-img" src="midia/fotos/foto8.jpg" alt="Sobrancelha">
+    <div class="service-title">Sobrancelha</div>
+    <div class="service-desc">Limpeza e definição.</div>
+    <div class="service-price">R$5</div>
+  </a>
+
+  <a class="card-service" href="agendar.html?servico=Bigode">
+    <img class="service-img" src="midia/fotos/foto9.jpg" alt="Bigode">
+    <div class="service-title">Bigode</div>
+    <div class="service-desc">Acabamento fino.</div>
+    <div class="service-price">R$5</div>
+  </a>
+
+  <a class="card-service" href="agendar.html?servico=Platinado">
+    <img class="service-img" src="midia/fotos/foto10.jpg" alt="Platinado">
+    <div class="service-title">Platinado</div>
+    <div class="service-desc">Processo detalhado.</div>
+    <div class="service-price">Consultar</div>
+  </a>
+
+</div>
+
+<!-- Botões -->
+<div class="action-row">
+  <a class="btn-whatsapp" href="https://wa.me/5521994858475" target="_blank">💬 AGENDAR PELO WHATSAPP</a>
+  <a class="btn-maps" href="https://www.google.com/maps/dir/?api=1&destination=-22.9035,-43.2096" target="_blank">📍 COMO CHEGAR</a>
+</div>
 
 </main>
 
-<footer>
-  © Bout Art Concept — Todos os direitos reservados
-</footer>
+<footer>© Bout Art Concept — Todos os direitos reservados</footer>
 
 <script>
 let slideIndex = 1;
@@ -278,17 +330,19 @@ function plusSlides(n){ showSlides(slideIndex += n); }
 function currentSlide(n){ showSlides(slideIndex = n); }
 
 function showSlides(n){
-  let i;
   let slides = document.getElementsByClassName("galeria-slide");
   let dots = document.getElementsByClassName("dot");
 
-  if (n > slides.length) slideIndex = 1;
-  if (n < 1) slideIndex = slides.length;
+  if(n > slides.length) slideIndex = 1;
+  if(n < 1) slideIndex = slides.length;
 
-  for(i=0;i<slides.length;i++){ slides[i].style.display="none"; }
-  for(i=0;i<dots.length;i++){ dots[i].classList.remove("active"); }
+  for(let i=0;i<slides.length;i++)
+    slides[i].style.display = "none";
 
-  slides[slideIndex-1].style.display="block";
+  for(let i=0;i<dots.length;i++)
+    dots[i].classList.remove("active");
+
+  slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].classList.add("active");
 }
 
@@ -297,4 +351,3 @@ setInterval(()=>plusSlides(1),4000);
 
 </body>
 </html>
-
