@@ -102,12 +102,14 @@ main{padding:16px;}
 
 /* GALERIA (Proporção Fixa e Controles mais discretos) */
 .galeria-container{
-  margin:24px auto 10px auto;
+  max-width: 380px; /* NOVO: Limita a largura do container */
+  width: 90%; /* NOVO: Ocupa 90% da tela, mas não mais que 380px */
+  margin:24px auto 10px auto; /* Centraliza horizontalmente */
   border-radius:12px;
   overflow:hidden;
   box-shadow:0 0 20px rgba(0,0,0,.5);
 }
-.galeria-slide img{
+  .galeria-slide img{
   width:100%;
   height:200px; /* Altura ideal para mobile (resolve proporção "inepta") */
   object-fit:cover;
@@ -372,3 +374,4 @@ setInterval(()=>plusSlides(1),4000);
 
 </body>
 </html>
+
