@@ -4,110 +4,229 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Agendar Serviço</title>
+
 <style>
-body{background:#0b0b0b;color:#fff;font-family:Arial;padding:20px}
-.box{padding:20px;background:#111;border-radius:12px;max-width:480px;margin:auto}
-label,select,button{display:block;width:100%;margin-top:12px}
-button{padding:12px;border-radius:10px;border:0;background:#25D366;color:#fff;font-weight:bold;font-size:1rem}
-.option{padding:10px;border:1px solid #444;border-radius:8px;margin:6px 0;cursor:pointer}
-.option:hover{background:#222}
+body{
+    background:#0b0b0b;
+    color:#fff;
+    font-family:Arial, sans-serif;
+    padding:20px;
+}
+.box{
+    padding:20px;
+    background:#111;
+    border-radius:14px;
+    max-width:480px;
+    margin:auto;
+}
+.label{
+    margin-top:12px;
+    font-size:0.9rem;
+    color:#ccc;
+}
+input[type="date"], input[type="text"]{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #333;
+    margin-top:6px;
+    background:#000;
+    color:#fff;
+}
+
+#horarios{
+    margin-top:14px;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:10px;
+}
+
+.hora{
+    background:#1a1a1a;
+    border:1px solid #333;
+    padding:10px 0;
+    border-radius:10px;
+    text-align:center;
+    cursor:pointer;
+    transition:.2s;
+}
+.hora:hover{
+    background:#222;
+    transform:scale(1.03);
+}
+.hora.selecionado{
+    background:#25D366;
+    color:#000;
+    font-weight:bold;
+    border-color:#25D366;
+}
+
+button{
+    width:100%;
+    margin-top:16px;
+    padding:14px;
+    font-size:1rem;
+    background:#25D366;
+    border:0;
+    border-radius:12px;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.msg{
+    margin-top:12px;
+    font-size:0.85rem;
+    color:#aaa;
+}
+
 </style>
 </head>
+
 <body>
 
 <div class="box">
-<h2 id="servico"></h2>
 
-<label>Escolha a data:</label>
-<input type="date" id="data" />
+<h2 id="titulo"></h2>
+
+<label class="label">Seu nome:</label>
+<input type="text" id="nomeCliente" placeholder="Digite seu nome">
+
+<label class="label">Escolha a data:</label>
+<input type="date" id="data">
 
 <div id="horarios"></div>
+
+<button id="btnEnviar" style="display:none;">Enviar agendamento no WhatsApp</button>
+
+<p class="msg">
+Após escolher o horário, você enviará no WhatsApp:<br>
+• Seu nome<br>
+• O horário escolhido<br>
+• Os serviços desejados<br>
+• A forma de pagamento
+</p>
+
 </div>
 
 <script>
-// serviço
+// Serviço vindo da URL
 const url = new URL(window.location);
 const servico = url.searchParams.get("servico") || "Serviço";
-document.getElementById("servico").innerText = "Agendar: " + servico;
 
-// expediente
-function gerarHorarios(dataSel){
-    const h = [];
-    let inicio = new Date(dataSel);
-    inicio.setHours(9,30,0,0);
-    let fim = new Date(dataSel);
-    fim.setHours(20,0,0,0);
+document.getElementById("titulo").innerText = "Agendar: " + servico;
 
-    if(inicio.getDay()===5) fim.setHours(21,0,0,0);     // sexta
-    if(inicio.getDay()===6) fim.setHours(20,0,0,0);     // sábado
-    if(inicio.getDay()===0) fim.setHours(26,0,0,0);     // domingo 02:00 (26h)
+// Número do WhatsApp
+const WHATSAPP = "5521994858475";
 
-    while(inicio <= fim){
-        h.push(inicio.toTimeString().slice(0,5));
-        inicio = new Date(inicio.getTime() + 60*60*1000);
+// Grade de horários por dia da semana
+function horariosDoDia(dataSel){
+    let d = new Date(dataSel);
+    let dia = d.getDay();
+    let horarios = [];
+
+    function gerar(inicio, fim){
+        let h = [];
+        let [ih, im] = inicio.split(":").map(Number);
+        let [fh, fm] = fim.split(":").map(Number);
+
+        let atual = new Date(d);
+        atual.setHours(ih, im, 0, 0);
+
+        let limite = new Date(d);
+        limite.setHours(fh, fm, 0, 0);
+
+        while(atual <= limite){
+            h.push(atual.toTimeString().slice(0,5));
+            atual = new Date(atual.getTime() + 60*60*1000);
+        }
+        return h;
     }
-    return h;
+
+    // Segunda = fechado
+    if(dia === 1) return [];
+
+    // Terça
+    if(dia === 2) return gerar("09:30","19:00");
+
+    // Quarta
+    if(dia === 3) return gerar("09:30","20:00");
+
+    // Quinta
+    if(dia === 4) return gerar("09:30","20:00");
+
+    // Sexta
+    if(dia === 5) return gerar("09:30","22:00");
+
+    // Sábado
+    if(dia === 6) return gerar("09:30","19:00");
+
+    // Domingo
+    if(dia === 0) return gerar("10:00","12:00");
+
+    return [];
 }
 
-// parse ICS local
-async function getOcupados(){
-    const txt = await fetch('agenda.ics').then(r=>r.text());
-    const eventos = [];
-    const linhas = txt.split(/\r?\n/);
-    let dtstart=null, dtend=null;
+// Renderizar horários
+let horarioSelecionado = null;
 
-    for(let l of linhas){
-        if(l.startsWith("DTSTART")){
-            dtstart = l.split(":")[1];
-        }
-        if(l.startsWith("DTEND")){
-            dtend = l.split(":")[1];
-        }
-        if(l==="END:VEVENT"){
-            if(dtstart && dtend) eventos.push({ini:dtstart,end:dtend});
-            dtstart=null; dtend=null;
-        }
-    }
-    return eventos;
-}
-
-// verifica se horário está dentro de evento
-function ocupado(horario, dataSel, eventos){
-    const [h,m] = horario.split(":").map(Number);
-    const t = new Date(dataSel);
-    t.setHours(h,m,0,0);
-
-    return eventos.some(ev=>{
-        const ini = new Date(ev.ini.substring(0,4), ev.ini.substring(4,6)-1, ev.ini.substring(6,8),
-                             ev.ini.substring(9,11), ev.ini.substring(11,13));
-        const end = new Date(ev.end.substring(0,4), ev.end.substring(4,6)-1, ev.end.substring(6,8),
-                             ev.end.substring(9,11), ev.end.substring(11,13));
-        return t>=ini && t<end;
-    });
-}
-
-// render horários
-document.getElementById("data").addEventListener("change", async e=>{
+document.getElementById("data").addEventListener("change", e=>{
     const dataSel = e.target.value;
+    const horarios = horariosDoDia(dataSel);
     const box = document.getElementById("horarios");
-    box.innerHTML = "Carregando..."
-    const eventos = await getOcupados();
-    const hs = gerarHorarios(new Date(dataSel));
-
     box.innerHTML = "";
-    hs.forEach(h=>{
-        if(!ocupado(h, dataSel, eventos)){
-            const div = document.createElement("div");
-            div.className = "option";
-            div.innerText = h;
-            div.onclick = ()=>{
-                const msg = encodeURIComponent(`Olá! Quero agendar ${servico} no dia ${dataSel} às ${h}.`);
-                window.open("https://wa.me/5521978893270?text="+msg);
-            };
-            box.appendChild(div);
-        }
+
+    if(horarios.length === 0){
+        box.innerHTML = "<p style='grid-column:1/-1;text-align:center;color:#bbb'>Nenhum horário disponível neste dia.</p>";
+        return;
+    }
+
+    horarios.forEach(h=>{
+        const div = document.createElement("div");
+        div.className = "hora";
+        div.innerText = h;
+
+        div.onclick = ()=>{
+            document.querySelectorAll(".hora").forEach(x=>x.classList.remove("selecionado"));
+            div.classList.add("selecionado");
+            horarioSelecionado = h;
+            document.getElementById("btnEnviar").style.display = "block";
+        };
+
+        box.appendChild(div);
     });
 });
+
+// Botão WhatsApp
+document.getElementById("btnEnviar").onclick = ()=>{
+    const nome = document.getElementById("nomeCliente").value.trim();
+    const dataSel = document.getElementById("data").value;
+
+    if(!nome){
+        alert("Digite seu nome antes de enviar.");
+        return;
+    }
+    if(!dataSel || !horarioSelecionado){
+        alert("Escolha a data e o horário.");
+        return;
+    }
+
+    const msg = encodeURIComponent(
+`Olá, meu nome é *${nome}*.
+Gostaria de agendar *${servico}*.
+
+📅 Data: ${dataSel}
+⏰ Horário: ${horarioSelecionado}
+
+Por favor, informe:
+- Os serviços desejados
+- A forma de pagamento
+
+Obrigado!`
+    );
+
+    window.open(`https://wa.me/${WHATSAPP}?text=${msg}`);
+};
 </script>
 
 </body>
