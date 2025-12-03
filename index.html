@@ -1,12 +1,3 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Bout Art Concept — Urban Premium</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@300;700;900&display=swap" rel="stylesheet">
-
 <style>
 /* 🎨 Cores e Variáveis Otimizadas para Mobile Dark Mode */
 :root{
@@ -72,7 +63,7 @@ a{color:inherit;text-decoration:none;}
     padding: 0 16px;
 }
 
-/* Header (Mantido) */
+/* Header (Ajustes de tamanho da logo e texto) */
 header{
   display:flex;
   align-items:center;
@@ -80,15 +71,25 @@ header{
   background:linear-gradient(180deg,var(--grafite),transparent);
   margin-bottom:10px;
 }
-/* Estilos do header precisam estar dentro do .content-container para alinhamento */
 .logo-wrap img{
-  width:32px; /* Reduzido para 32px */
-  height:32px; /* Reduzido para 32px */
+  width:32px; /* FINAL: Logo bem pequena */
+  height:32px;
   border-radius:6px;
   object-fit:cover;
 }
+.studio-title{
+  font-family:var(--font-title);
+  color:var(--gold);
+  font-size:1.2rem; /* FINAL: Título reduzido */
+  line-height: 1;
+}
+.studio-sub{
+  color:var(--muted);
+  font-size:.65rem; /* FINAL: Subtítulo reduzido */
+  line-height: 1;
+}
 
-/* Frase de Destaque (Novo Estilo) */
+/* Frase de Destaque */
 .quote-highlight{
     color: var(--muted);
     font-style: italic;
@@ -102,14 +103,14 @@ header{
 }
 
 
-/* STORIES (Mantido) */
+/* STORIES */
 .stories{
   display:flex;
   gap:10px;
   overflow-x:auto;
   padding:0;
   margin-top:12px;
-  margin-bottom: 24px; /* Mais espaço após stories */
+  margin-bottom: 24px;
 }
 .story{
   min-width:140px;
@@ -125,9 +126,9 @@ header{
 }
 
 
-/* GALERIA (Compacta e Harmonizada com Stories) */
+/* GALERIA (Compacta e Integrada) */
 .galeria-container{
-  max-width: 380px;
+  max-width: 380px; 
   width: 100%; 
   margin:24px auto 10px auto;
   border-radius:12px;
@@ -136,9 +137,9 @@ header{
 }
 .galeria-slide img{
   width:100%;
-  height:220px; /* Igual a Stories */
-  object-fit:contain; /* Mostra a imagem inteira */
-  background-color: var(--grafite); /* Cor de fundo para o espaço vazio */
+  height:220px; 
+  object-fit:contain; 
+  background-color: var(--grafite);
 }
 .prev,.next{
   cursor:pointer;
@@ -157,10 +158,10 @@ header{
 .prev:hover,.next:hover{background:rgba(0,0,0,.6);}
 
 
-/* Dots transformados em Dashes (Mais moderno) */
+/* Dots transformados em Dashes */
 .dot{
-  height:4px; /* Mais fino */
-  width:20px; /* Mais largo (formato de traço/dash) */
+  height:4px;
+  width:20px;
   margin:0 4px;
   background:#444;
   display:inline-block;
@@ -245,166 +246,3 @@ header{
 footer{text-align:center;color:var(--muted);padding:25px; font-size: .8rem;}
 
 </style>
-</head>
-
-<body>
-
-<header>
-  <div class="content-container"> 
-    <div class="logo-wrap">
-      <img src="midia/logo/logo.jpeg" alt="logo">
-      <div>
-        <div class="studio-title">Bout Art Concept</div>
-        <div class="studio-sub">Urban Premium • Cortes & Barba</div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main>
-  <div class="content-container">
-
-    <h2>Bem-vindo</h2>
-    <p class="quote-highlight">
-        Seu estilo é a nossa arte. Aqui você encontra as <strong>melhores inspirações</strong> para o seu próximo corte.
-    </p>
-
-    <div class="stories">
-      <div class="story"><video src="midia/videos/video1.mp4" autoplay muted loop></video></div>
-      <div class="story"><video src="midia/videos/video2.mp4" autoplay muted loop></video></div>
-      <div class="story"><video src="midia/videos/video3.mp4" autoplay muted loop></video></div>
-    </div>
-
-    <h2>Galeria de Cortes</h2>
-
-    <div class="galeria-container">
-
-      <div class="galeria-slide fade"><img src="midia/galeria/foto1.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto2.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto3.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto4.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto5.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto6.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto7.jpg"></div>
-      <div class="galeria-slide fade"><img src="midia/galeria/foto8.jpg"></div>
-
-      <a class="prev" onclick="plusSlides(-1)">❮</a>
-      <a class="next" onclick="plusSlides(1)">❯</a>
-    </div>
-
-    <div style="text-align:center;margin-top:8px;">
-      <span class="dot" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(2)"></span>
-      <span class="dot" onclick="currentSlide(3)"></span>
-      <span class="dot" onclick="currentSlide(4)"></span>
-      <span class="dot" onclick="currentSlide(5)"></span>
-      <span class="dot" onclick="currentSlide(6)"></span>
-      <span class="dot" onclick="currentSlide(7)"></span>
-      <span class="dot" onclick="currentSlide(8)"></span>
-    </div>
-
-    <h2>Nossos Serviços</h2>
-    <div class="services-grid">
-
-      <a class="card-service" href="agendar.html?servico=Corte%20Simples">
-        <img class="service-img" src="midia/fotos/foto1.jpg" alt="Corte Simples">
-        <h3 class="service-title">Corte Simples</h3>
-        <div class="service-desc">Corte rápido e alinhado.</div>
-        <div class="service-price">R$15</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Corte%20Social">
-        <img class="service-img" src="midia/fotos/foto2.jpg" alt="Corte Social">
-        <h3 class="service-title">Corte Social</h3>
-        <div class="service-desc">Clássico e bem polido.</div>
-        <div class="service-price">R$25</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Corte%20Disfarcado">
-        <img class="service-img" src="midia/fotos/foto3.jpg" alt="Disfarçado">
-        <h3 class="service-title">Corte Disfarcado</h3>
-        <div class="service-desc">Degradê moderno.</div>
-        <div class="service-price">R$35</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Acabamento">
-        <img class="service-img" src="midia/fotos/foto4.jpg" alt="Acabamento">
-        <h3 class="service-title">Acabamento</h3>
-        <div class="service-desc">Contornos e limpeza.</div>
-        <div class="service-price">R$10</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Barba%20Simples">
-        <img class="service-img" src="midia/fotos/foto5.jpg" alt="Barba Simples">
-        <h3 class="service-title">Barba Simples</h3>
-        <div class="service-desc">Limpeza básica.</div>
-        <div class="service-price">R$10</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Barba%20Modelada">
-        <img class="service-img" src="midia/fotos/foto6.jpg" alt="Barba Modelada">
-        <h3 class="service-title">Barba Modelada</h3>
-        <div class="service-desc">Design marcado.</div>
-        <div class="service-price">R$15</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Pigmentação">
-        <img class="service-img" src="midia/fotos/foto7.jpg" alt="Pigmentação">
-        <h3 class="service-title">Pigmentação</h3>
-        <div class="service-desc">Reforço de cor.</div>
-        <div class="service-price">R$10</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Sobrancelha">
-        <img class="service-img" src="midia/fotos/foto8.jpg" alt="Sobrancelha">
-        <h3 class="service-title">Sobrancelha</h3>
-        <div class="service-desc">Limpeza e definição.</div>
-        <div class="service-price">R$5</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Bigode">
-        <img class="service-img" src="midia/fotos/foto9.jpg" alt="Bigode">
-        <h3 class="service-title">Bigode</h3>
-        <div class="service-desc">Acabamento fino.</div>
-        <div class="service-price">R$5</div>
-      </a>
-      <a class="card-service" href="agendar.html?servico=Platinado">
-        <img class="service-img" src="midia/fotos/foto10.jpg" alt="Platinado">
-        <h3 class="service-title">Platinado</h3>
-        <div class="service-desc">Processo detalhado.</div>
-        <div class="service-price">Consultar</div>
-      </a>
-      
-    </div>
-
-    <div class="action-row">
-      <a class="btn-whatsapp" href="https://wa.me/5521994858475" target="_blank">💬 AGENDAR PELO WHATSAPP</a>
-      <a class="btn-maps" href="https://www.google.com/maps/dir/?api=1&destination=-22.9035,-43.2096" target="_blank">📍 COMO CHEGAR</a>
-    </div>
-
-  </div>
-</main>
-
-<footer><div class="content-container">© Bout Art Concept — Todos os direitos reservados</div></footer>
-
-<script>
-let slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n){ showSlides(slideIndex += n); }
-function currentSlide(n){ showSlides(slideIndex = n); }
-
-function showSlides(n){
-  let slides = document.getElementsByClassName("galeria-slide");
-  let dots = document.getElementsByClassName("dot");
-
-  if(n > slides.length) slideIndex = 1;
-  if(n < 1) slideIndex = slides.length;
-
-  for(let i=0;i<slides.length;i++)
-    slides[i].style.display = "none";
-
-  for(let i=0;i<dots.length;i++)
-    dots[i].classList.remove("active");
-
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].classList.add("active");
-}
-
-setInterval(()=>plusSlides(1),4000);
-</script>
-
-</body>
-</html>
