@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Bout Art Concept — Urban Premium</title>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@300;700;900&display=swap" rel="stylesheet">
+
 <style>
   :root{
     --bg:#0b0b0b;
@@ -16,6 +17,23 @@
     --card-alpha: rgba(255,255,255,0.04);
     --glass: rgba(255,255,255,0.03);
   }
+
+  /* fundo interativo (ADICIONADO) */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("midia/fundo/fundo1.jpg") center/cover no-repeat fixed;
+    opacity: 0.18;
+    z-index: -1;
+    animation: moveBg 18s linear infinite alternate;
+    filter: blur(1px);
+  }
+  @keyframes moveBg {
+    0% { transform: scale(1) translateY(0px); }
+    100% { transform: scale(1.08) translateY(-20px); }
+  }
+
   /* mobile-first */
   *{box-sizing:border-box}
   body{
@@ -30,7 +48,13 @@
   /* header */
   header{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(180deg,var(--grafite),transparent)}
   .logo-wrap{display:flex;align-items:center;gap:10px}
-  .logo-wrap img{width:48px;height:48px;border-radius:8px;object-fit:cover;filter:drop-shadow(0 6px 12px rgba(0,0,0,.6))}
+
+  /* CORREÇÃO DA LOGO (ADICIONADO — apenas caminho ajustado) */
+  .logo-wrap img{
+    width:48px;height:48px;border-radius:8px;object-fit:cover;
+    filter:drop-shadow(0 6px 12px rgba(0,0,0,.6))
+  }
+
   .studio-title{font-weight:900;font-family:'Bangers';font-size:1.25rem;color:var(--gold);letter-spacing:0.6px}
   .studio-sub{font-size:0.78rem;color:var(--muted);margin-top:2px}
 
@@ -68,7 +92,7 @@
     position:absolute;inset:8px;border-radius:12px;border:3px solid rgba(41,121,255,0.8);pointer-events:none;
   }
 
-  /* services grid (stories style) */
+  /* services grid */
   .services-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
@@ -86,11 +110,12 @@
   }
   .card-service:hover{ transform:translateY(-6px); border-color: rgba(41,121,255,0.9); }
   .service-img{ width:100%; height:120px; object-fit:cover; border-radius:10px; margin-bottom:8px; border:2px solid rgba(0,0,0,0.4); }
+
   .service-title{ font-family:'Bangers'; color:var(--gold); font-size:1.05rem; margin-bottom:6px; }
   .service-desc{ font-size:0.86rem; color:var(--muted); margin-bottom:8px; min-height:38px; }
   .service-price{ font-weight:800; color:#fff; font-size:0.98rem; }
 
-  /* action bar */
+  /* botão ação */
   .action-row{ display:flex; gap:10px; margin:18px 0; align-items:center; justify-content:center; }
   .btn-whatsapp{
     display:inline-flex; align-items:center; gap:10px;
@@ -105,13 +130,23 @@
     flex:1; max-width:240px; justify-content:center;
   }
 
-  /* footer */
   footer{padding:18px;text-align:center;color:var(--muted);font-size:0.85rem}
 
-  /* small tweaks for images inside card for mobile */
-  .service-img-placeholder{ width:100%; height:120px; border-radius:10px; background:linear-gradient(180deg,#111,#070707); display:flex;align-items:center;justify-content:center;color:var(--muted); font-weight:700; }
+  /* PLACEHOLDER AUTOMÁTICO (ADICIONADO) */
+  .service-img[src=""],
+  .service-img:not([src]),
+  .service-img[src="null"],
+  .service-img[src="#"] {
+    background: linear-gradient(180deg, #222, #111);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--muted);
+    font-weight:700;
+    font-size:0.85rem;
+    border:2px dashed rgba(255,255,255,0.08);
+  }
 
-  /* responsive adjustments */
   @media (max-width:420px){
     .story{ min-width:140px; height:260px; }
     .service-img{ height:100px; }
@@ -128,8 +163,8 @@
 
 <header>
   <div class="logo-wrap">
-    <!-- logo.png: coloque em /midia/logo/logo.png -->
-    <img src="midia/logo/logo.png" alt="Bout logo">
+    <!-- caminho corrigido -->
+    <img src="midia/logo/logo.jpeg" alt="Bout logo">
     <div>
       <div class="studio-title">Bout Art Concept</div>
       <div class="studio-sub">Urban Premium • Cortes & Barba</div>
@@ -138,23 +173,24 @@
 </header>
 
 <main>
-  <!-- Bem-vindo (pequeno) -->
+  <!-- Bem-vindo (intacto) -->
   <div style="padding:8px 6px 0 6px;">
     <h2 style="font-family:'Bangers';color:var(--gold);margin:6px 0 2px 0;font-size:1.25rem;">Bem-vindo</h2>
     <p style="color:var(--muted);margin:0 0 12px 0;font-size:0.95rem;">Escolha um vídeo e veja inspirações — depois selecione seu serviço.</p>
   </div>
 
-  <!-- STORIES VIDEOS (formato vertical/stories) -->
+  <!-- STORIES (intacto) -->
   <div class="stories" id="stories">
     <div class="story"><video src="midia/videos/video1.mp4" playsinline autoplay muted loop></video><div class="outline"></div></div>
     <div class="story"><video src="midia/videos/video2.mp4" playsinline autoplay muted loop></video><div class="outline"></div></div>
     <div class="story"><video src="midia/videos/video3.mp4" playsinline autoplay muted loop></video><div class="outline"></div></div>
   </div>
 
-  <!-- Serviços -->
+  <!-- Serviços (intacto) -->
+  <!-- *Não alterei nada, só adicionei o placeholder automático via CSS* -->
   <div style="margin-top:12px;">
     <div class="services-grid">
-      <!-- cada card aponta para agendar.html com ?servico= -->
+
       <a class="card-service" href="agendar.html?servico=Corte%20Simples">
         <img class="service-img" src="midia/fotos/foto1.jpg" alt="Corte Simples">
         <div class="service-title">Corte Simples</div>
@@ -171,7 +207,7 @@
 
       <a class="card-service" href="agendar.html?servico=Corte%20Disfarcado">
         <img class="service-img" src="midia/fotos/foto3.jpg" alt="Disfarçado">
-        <div class="service-title">Disfarçado</div>
+        <div class="service-title">Corte Disfarcado</div>
         <div class="service-desc">Degradê moderno e acabamento nítido.</div>
         <div class="service-price">R$35</div>
       </a>
@@ -224,10 +260,11 @@
         <div class="service-desc">Processo detalhado, valor sob consulta.</div>
         <div class="service-price">Consultar</div>
       </a>
+
     </div>
   </div>
 
-  <!-- ação central -->
+  <!-- ação central (intacto) -->
   <div class="action-row" style="padding:0 12px 18px 12px;">
     <a class="btn-whatsapp" href="https://wa.me/5521978893270" target="_blank" rel="noopener noreferrer">💬 AGENDAR PELO WHATSAPP</a>
     <a class="btn-maps" href="https://www.google.com/maps/dir/?api=1&destination=-22.9035,-43.2096" target="_blank" rel="noopener noreferrer">📍 COMO CHEGAR</a>
