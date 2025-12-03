@@ -1,366 +1,113 @@
 <!doctype html>
-
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Agendar — Bout Art Concept</title>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@300;700;900&display=swap" rel="stylesheet">
+<title>Agendar Serviço</title>
 <style>
-  :root{
-    --bg:#0b0b0b;
-    --muted:#bdbdbd;
-    --gold:#ffd400;
-    --whatsapp:#25D366;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:'Nunito',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-    background: linear-gradient(180deg,#070707,#020202);
-    color:#fff;
-    -webkit-font-smoothing:antialiased;
-  }
-  header{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(180deg,#111,transparent)}
-  .logo-wrap img{width:48px;height:48px;border-radius:8px;object-fit:cover;filter:drop-shadow(0 6px 12px rgba(0,0,0,.6))}
-  .container{max-width:980px;margin:18px auto;padding:12px}
-  h1{font-family:'Bangers';color:var(--gold);margin:8px 0 6px 0}
-  p.lead{color:var(--muted);margin:0 0 12px 0}
-  .panel{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.04)}
-  .row{display:flex;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
-  label{font-size:0.95rem;color:var(--muted);min-width:120px}
-  input[type="date"], select{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff}
-  .slots{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
-  .slot{padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.04);cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
-  .slot.disabled{opacity:0.35;cursor:not-allowed;border-style:dashed}
-  .slot:hover:not(.disabled){transform:translateY(-4px);box-shadow:0 10px 20px rgba(0,0,0,0.6)}
-  .note{font-size:0.9rem;color:var(--muted);margin-top:10px}
-  .btn-whatsapp{
-    display:inline-flex;align-items:center;gap:10px;background:var(--whatsapp);color:#fff;padding:12px 14px;border-radius:12px;text-decoration:none;font-weight:800;
-  }
-  .error{background:#400; padding:10px;border-radius:8px;color:#ffdede;margin-top:10px}
-  .select-service{padding:10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff}
-  @media(max-width:720px){
-    .row{flex-direction:column;align-items:stretch}
-    label{min-width:0}
-  }
+body{background:#0b0b0b;color:#fff;font-family:Arial;padding:20px}
+.box{padding:20px;background:#111;border-radius:12px;max-width:480px;margin:auto}
+label,select,button{display:block;width:100%;margin-top:12px}
+button{padding:12px;border-radius:10px;border:0;background:#25D366;color:#fff;font-weight:bold;font-size:1rem}
+.option{padding:10px;border:1px solid #444;border-radius:8px;margin:6px 0;cursor:pointer}
+.option:hover{background:#222}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo-wrap">
-    <img src="midia/logo/logo.jpeg" alt="Bout logo">
-  </div>
-</header>
+<div class="box">
+<h2 id="servico"></h2>
 
-<div class="container">
-  <h1>Agendamento</h1>
-  <p class="lead">Escolha a data, selecione um horário livre, escolha o serviço e confirme pelo WhatsApp.</p>
+<label>Escolha a data:</label>
+<input type="date" id="data" />
 
-  <div class="panel" id="app">
-    <div class="row">
-      <label>Serviço (pré-selecionado):</label>
-      <div id="servicoName" style="font-weight:700;color:var(--gold)">— carregando —</div>
-    </div>
-
-```
-<div class="row">
-  <label for="dia">Data:</label>
-  <input type="date" id="dia">
-  <small style="color:var(--muted)">Selecione o dia desejado</small>
-</div>
-
-<div class="row">
-  <label>Horários disponíveis:</label>
-  <div style="flex:1">
-    <div id="slots" class="slots">Escolha uma data acima</div>
-    <div id="busyLegend" class="note"></div>
-  </div>
-</div>
-
-<div class="row" id="serviceRow" style="display:none">
-  <label for="serviceSelect">Escolha o serviço:</label>
-  <select id="serviceSelect" class="select-service">
-    <option value="Corte Simples">Corte Simples — R$15</option>
-    <option value="Corte Social">Corte Social — R$25</option>
-    <option value="Corte Disfarcado">Corte Disfarcado — R$35</option>
-    <option value="Acabamento">Acabamento — R$10</option>
-    <option value="Barba Simples">Barba Simples — R$10</option>
-    <option value="Barba Modelada">Barba Modelada — R$15</option>
-    <option value="Pigmentação">Pigmentação — R$10</option>
-    <option value="Sobrancelha">Sobrancelha — R$5</option>
-    <option value="Bigode">Bigode — R$5</option>
-    <option value="Platinado">Platinado — Consultar</option>
-  </select>
-</div>
-
-<div id="confirmRow" style="display:none" class="row">
-  <label>Confirmar no WhatsApp:</label>
-  <div>
-    <a id="confirmBtn" class="btn-whatsapp" href="#" target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a>
-  </div>
-</div>
-
-<div id="info" class="note">Ao confirmar, o WhatsApp abrirá com a mensagem pronta.</div>
-<div id="error" class="error" style="display:none"></div>
-```
-
-  </div>
+<div id="horarios"></div>
 </div>
 
 <script>
-/* agendar.html - ICS version
-   Flow: DATE -> TIME -> SERVICE -> WHATSAPP
-   Calendar ICS URL (public): generated from your Google Calendar public feed
-*/
+// serviço
+const url = new URL(window.location);
+const servico = url.searchParams.get("servico") || "Serviço";
+document.getElementById("servico").innerText = "Agendar: " + servico;
 
-/* ---------- CONFIG ---------- */
-const CALENDAR_ICS = 'https://calendar.google.com/calendar/ical/boutwarvg%40gmail.com/public/basic.ics';
-const WHATSAPP_NUMBER = '5521978893270';
-const STEP_MINUTES = 30;
+// expediente
+function gerarHorarios(dataSel){
+    const h = [];
+    let inicio = new Date(dataSel);
+    inicio.setHours(9,30,0,0);
+    let fim = new Date(dataSel);
+    fim.setHours(20,0,0,0);
 
-/* Weekly schedule definition (arrays of shifts per weekday)
-   Weekday: 0=Sunday,1=Monday,...6=Saturday
-   Each shift: {start: "HH:MM", end: "HH:MM"} end may be <= start to indicate crossing midnight
-   Interpretation: for the selected date, shifts are interpreted as local times.
-*/
-const WEEKLY_SHIFTS = {
-  0: [ {start: "00:00", end: "02:00"}, {start: "09:30", end: "20:00"} ], // Sunday: early shift (late Saturday night) + daytime
-  1: [], // Monday: fechado
-  2: [ {start: "09:30", end: "20:00"} ], // Tuesday
-  3: [ {start: "09:30", end: "20:00"} ], // Wednesday
-  4: [ {start: "09:30", end: "20:00"} ], // Thursday
-  5: [ {start: "09:30", end: "21:00"} ], // Friday extended to 21:00
-  6: [ {start: "09:30", end: "20:00"} ]  // Saturday (daytime); note Sunday 00:00-02:00 covers late night
-};
+    if(inicio.getDay()===5) fim.setHours(21,0,0,0);     // sexta
+    if(inicio.getDay()===6) fim.setHours(20,0,0,0);     // sábado
+    if(inicio.getDay()===0) fim.setHours(26,0,0,0);     // domingo 02:00 (26h)
 
-/* ---------------------------- */
-
-const util = {
-  pad(n){ return n<10?('0'+n):(''+n); },
-  dateToYMD(d){ return `${d.getFullYear()}-${util.pad(d.getMonth()+1)}-${util.pad(d.getDate())}`; },
-  ymdToDate(ymd){ const [y,m,d]=ymd.split('-').map(Number); return new Date(y,m-1,d); },
-  timeToParts(t){ const [hh,mm]=t.split(':').map(Number); return {hh,mm}; },
-  addMinutes(d, m){ return new Date(d.getTime() + m*60000); },
-  isoFromIcs(dtRaw){
-    if(!dtRaw) return null;
-    const z = dtRaw.endsWith('Z');
-    const clean = dtRaw.replace(/Z$/,'');
-    const y = clean.slice(0,4), mo = clean.slice(4,6), day = clean.slice(6,8),
-          hh = clean.slice(9,11), mm = clean.slice(11,13), ss = clean.slice(13,15) || '00';
-    return `${y}-${mo}-${day}T${hh}:${mm}:${ss}${z? 'Z' : ''}`;
-  },
-  overlap(aS,aE,bS,bE){
-    return aS < bE && bS < aE;
-  }
-};
-
-/* Parse ICS text into events [{start:Date,end:Date,summary}] */
-function parseIcs(icsText){
-  const lines = icsText.split(/\r?\n/);
-  const events = [];
-  let inEvent = false, cur = {};
-  for(let i=0;i<lines.length;i++){
-    let L = lines[i];
-    if(!L) continue;
-    if(L.startsWith('BEGIN:VEVENT')){ inEvent=true; cur={}; continue; }
-    if(L.startsWith('END:VEVENT')){ inEvent=false; if(cur.dtstart && cur.dtend){ events.push(cur); } cur={}; continue; }
-    if(!inEvent) continue;
-    if(L.startsWith(' ')){
-      const lastKey = Object.keys(cur).pop();
-      if(lastKey) cur[lastKey] += L.trim();
-      continue;
+    while(inicio <= fim){
+        h.push(inicio.toTimeString().slice(0,5));
+        inicio = new Date(inicio.getTime() + 60*60*1000);
     }
-    const mStart = L.match(/^DTSTART(?:;TZID=[^:]+)?:([0-9TzZ+-]+)/i);
-    if(mStart){ cur.dtstart = util.isoFromIcs(mStart[1]); continue; }
-    const mEnd = L.match(/^DTEND(?:;TZID=[^:]+)?:([0-9TzZ+-]+)/i);
-    if(mEnd){ cur.dtend = util.isoFromIcs(mEnd[1]); continue; }
-    const mSum = L.match(/^SUMMARY:(.+)/i);
-    if(mSum){ cur.summary = mSum[1]; continue; }
-  }
-  return events.map(ev => {
-    const start = ev.dtstart ? new Date(ev.dtstart) : null;
-    const end = ev.dtend ? new Date(ev.dtend) : null;
-    return { start, end, summary: ev.summary || '' };
-  }).filter(e => e.start && e.end);
+    return h;
 }
 
-/* For a given local date (Date at 00:00 local), generate candidate slots according to shifts */
-function generateSlotsForLocalDate(localDate){
-  // localDate is Date at local midnight
-  const slots = [];
-  const wd = localDate.getDay();
-  const shifts = WEEKLY_SHIFTS[wd] || [];
-  shifts.forEach(shift => {
-    const sParts = util.timeToParts(shift.start);
-    const eParts = util.timeToParts(shift.end);
-    // Build start and end Date objects for this localDate
-    let start = new Date(localDate.getFullYear(), localDate.getMonth(), localDate.getDate(), sParts.hh, sParts.mm, 0);
-    let end = new Date(localDate.getFullYear(), localDate.getMonth(), localDate.getDate(), eParts.hh, eParts.mm, 0);
-    // If end <= start, it means crossing midnight -> end on next day
-    if(end.getTime() <= start.getTime()){
-      end = new Date(end.getTime() + 24*60*60000);
+// parse ICS local
+async function getOcupados(){
+    const txt = await fetch('agenda.ics').then(r=>r.text());
+    const eventos = [];
+    const linhas = txt.split(/\r?\n/);
+    let dtstart=null, dtend=null;
+
+    for(let l of linhas){
+        if(l.startsWith("DTSTART")){
+            dtstart = l.split(":")[1];
+        }
+        if(l.startsWith("DTEND")){
+            dtend = l.split(":")[1];
+        }
+        if(l==="END:VEVENT"){
+            if(dtstart && dtend) eventos.push({ini:dtstart,end:dtend});
+            dtstart=null; dtend=null;
+        }
     }
-    // generate slots from start to end stepping STEP_MINUTES
-    for(let t = new Date(start.getTime()); t.getTime() < end.getTime(); t = util.addMinutes(t, STEP_MINUTES)){
-      const slotEnd = util.addMinutes(t, STEP_MINUTES);
-      // if slotEnd > end, break
-      if(slotEnd.getTime() > end.getTime()) break;
-      slots.push({ start: new Date(t.getTime()), end: new Date(slotEnd.getTime()) });
-    }
-  });
-  return slots;
+    return eventos;
 }
 
-/* Determine whether a slot overlaps any event (busyEvents are Date objects) */
-function markSlots(slots, busyEvents){
-  return slots.map(slot => {
-    const busy = busyEvents.some(ev => util.overlap(slot.start.getTime(), slot.end.getTime(), ev.start.getTime(), ev.end.getTime()));
-    return Object.assign({}, slot, { busy });
-  });
+// verifica se horário está dentro de evento
+function ocupado(horario, dataSel, eventos){
+    const [h,m] = horario.split(":").map(Number);
+    const t = new Date(dataSel);
+    t.setHours(h,m,0,0);
+
+    return eventos.some(ev=>{
+        const ini = new Date(ev.ini.substring(0,4), ev.ini.substring(4,6)-1, ev.ini.substring(6,8),
+                             ev.ini.substring(9,11), ev.ini.substring(11,13));
+        const end = new Date(ev.end.substring(0,4), ev.end.substring(4,6)-1, ev.end.substring(6,8),
+                             ev.end.substring(9,11), ev.end.substring(11,13));
+        return t>=ini && t<end;
+    });
 }
 
-/* Convert events from ICS to array and map those that touch the local day-range */
-function eventsTouchingLocalDay(events, localDate){
-  // localDate is at 00:00 local. We'll return events that intersect [localDate, localDate+24h)
-  const dayStart = new Date(localDate.getFullYear(), localDate.getMonth(), localDate.getDate(), 0,0,0);
-  const dayEnd = new Date(dayStart.getTime() + 24*60*60000);
-  // Note: events may be in UTC depending on ICS; Date objects already represent correct instants.
-  return events.filter(ev => util.overlap(ev.start.getTime(), ev.end.getTime(), dayStart.getTime(), dayEnd.getTime()));
-}
+// render horários
+document.getElementById("data").addEventListener("change", async e=>{
+    const dataSel = e.target.value;
+    const box = document.getElementById("horarios");
+    box.innerHTML = "Carregando..."
+    const eventos = await getOcupados();
+    const hs = gerarHorarios(new Date(dataSel));
 
-/* Render slots */
-function renderSlots(markedSlots){
-  const container = document.getElementById('slots');
-  container.innerHTML = '';
-  if(markedSlots.length === 0){
-    container.textContent = 'Nenhum horário disponível neste dia.';
-    document.getElementById('serviceRow').style.display = 'none';
-    document.getElementById('confirmRow').style.display = 'none';
-    return;
-  }
-  markedSlots.forEach(s => {
-    // display slot start in local time (HH:MM)
-    const t = `${util.pad(s.start.getHours())}:${util.pad(s.start.getMinutes())}`;
-    const btn = document.createElement('button');
-    btn.className = 'slot' + (s.busy ? ' disabled' : '');
-    btn.textContent = t;
-    if(!s.busy){
-      btn.addEventListener('click', () => selectSlot(s));
-    }
-    container.appendChild(btn);
-  });
-  const busyCount = markedSlots.filter(s=>s.busy).length;
-  document.getElementById('busyLegend').textContent = `${markedSlots.length - busyCount} horários livres de ${markedSlots.length} gerados.`;
-}
-
-/* When a free slot is clicked */
-let SELECTED_SLOT = null;
-function selectSlot(slot){
-  SELECTED_SLOT = slot;
-  // show service selector
-  document.getElementById('serviceRow').style.display = 'flex';
-  document.getElementById('confirmRow').style.display = 'flex';
-  // populate servicoSelect with URL param default if present
-  const pre = decodeURIComponent(getServiceFromUrl()) || '';
-  const sel = document.getElementById('serviceSelect');
-  if(pre){
-    // try to select an exact match; if not found, add it as first option
-    let found = false;
-    for(let i=0;i<sel.options.length;i++){
-      if(sel.options[i].value.toLowerCase() === pre.toLowerCase()){ sel.selectedIndex = i; found = true; break; }
-    }
-    if(!found){
-      const opt = document.createElement('option'); opt.value = pre; opt.textContent = pre + ' (selecionado)';
-      sel.insertBefore(opt, sel.firstChild); sel.selectedIndex = 0;
-    }
-  }
-  updateConfirmButton();
-}
-
-/* Update WhatsApp confirm link */
-function updateConfirmButton(){
-  if(!SELECTED_SLOT) return;
-  const serv = document.getElementById('serviceSelect').value || decodeURIComponent(getServiceFromUrl()) || 'Serviço';
-  const d = SELECTED_SLOT.start;
-  // Format date dd/mm/yyyy and time hh:mm
-  const day = `${util.pad(d.getDate())}/${util.pad(d.getMonth()+1)}/${d.getFullYear()}`;
-  const time = `${util.pad(d.getHours())}:${util.pad(d.getMinutes())}`;
-  const text = `Olá! Gostaria de agendar *${serv}* para o dia ${day} às ${time}.`;
-  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-  const btn = document.getElementById('confirmBtn');
-  btn.href = waLink;
-  btn.textContent = `Confirmar ${serv} — ${time} (${day})`;
-}
-
-/* Get service from URL param */
-function getServiceFromUrl(){
-  const params = new URLSearchParams(window.location.search);
-  return params.get('servico') || '';
-}
-
-/* Set service display */
-function setServiceName(){
-  const srv = decodeURIComponent(getServiceFromUrl());
-  document.getElementById('servicoName').textContent = srv || 'Selecione um serviço abaixo';
-}
-
-/* Fetch ICS and update slots for the selected date */
-async function updateForDate(localDate){
-  document.getElementById('error').style.display = 'none';
-  document.getElementById('slots').textContent = 'Carregando…';
-  SELECTED_SLOT = null;
-  document.getElementById('serviceRow').style.display = 'none';
-  document.getElementById('confirmRow').style.display = 'none';
-  try{
-    const res = await fetch(CALENDAR_ICS);
-    if(!res.ok) throw new Error('Falha ao baixar ICS ('+res.status+')');
-    const text = await res.text();
-    const events = parseIcs(text);
-    // For robust matching, we want all events that overlap the local date extended by 24h,
-    // but since our shifts may extend past midnight, we will also consider events from adjacent days.
-    // We'll mark busy slots by checking overlap with event instants.
-    // Generate candidate slots based on defined WEEKLY_SHIFTS for the selected date.
-    const slots = generateSlotsForLocalDate(localDate);
-    // Determine busy events that could overlap these slots (filter events by broad window)
-    const extendedStart = new Date(localDate.getFullYear(), localDate.getMonth(), localDate.getDate(), 0,0,0);
-    const extendedEnd = new Date(extendedStart.getTime() + 48*60*60000); // +48h to be safe for cross-midnight events
-    const possibleEvents = events.filter(ev => util.overlap(ev.start.getTime(), ev.end.getTime(), extendedStart.getTime(), extendedEnd.getTime()));
-    // mark slots busy
-    const marked = markSlots(slots, possibleEvents);
-    renderSlots(marked);
-  }catch(err){
-    const errBox = document.getElementById('error');
-    errBox.style.display = 'block';
-    errBox.innerHTML = `<strong>Erro ao carregar disponibilidade:</strong> ${err.message}.<br><br>
-      Possíveis causas:<br>
-      • A agenda pública não está ativa como "Ver apenas livre/ocupado".<br>
-      • O link ICS está incorreto.<br><br>
-      Solução: Verifique a agenda pública e, se quiser, eu gero a versão usando Google Calendar API com API Key (mais tolerante).`;
-    document.getElementById('slots').textContent = 'Não foi possível carregar horários.';
-  }
-}
-
-/* init */
-function init(){
-  setServiceName();
-  const diaInput = document.getElementById('dia');
-  const today = new Date();
-  // set min date to today
-  diaInput.min = util.dateToYMD(today);
-  diaInput.value = util.dateToYMD(today);
-  diaInput.addEventListener('change', () => {
-    const chosen = util.ymdToDate(diaInput.value);
-    updateForDate(chosen);
-  });
-  // on service select change, update confirm button text
-  document.getElementById('serviceSelect').addEventListener('change', updateConfirmButton);
-  // initial load
-  updateForDate(util.ymdToDate(diaInput.value));
-}
-
-document.addEventListener('DOMContentLoaded', init);
+    box.innerHTML = "";
+    hs.forEach(h=>{
+        if(!ocupado(h, dataSel, eventos)){
+            const div = document.createElement("div");
+            div.className = "option";
+            div.innerText = h;
+            div.onclick = ()=>{
+                const msg = encodeURIComponent(`Olá! Quero agendar ${servico} no dia ${dataSel} às ${h}.`);
+                window.open("https://wa.me/5521978893270?text="+msg);
+            };
+            box.appendChild(div);
+        }
+    });
+});
 </script>
 
 </body>
