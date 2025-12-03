@@ -245,6 +245,7 @@ footer{text-align:center;color:var(--muted);padding:25px; font-size: .8rem;}
 
 <body>
 
+<!-- Header -->
 <header>
   <div class="content-container"> 
     <div class="logo-wrap">
@@ -255,6 +256,50 @@ footer{text-align:center;color:var(--muted);padding:25px; font-size: .8rem;}
       </div>
     </div>
   </div>
+</header>
+
+<style>
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;  /* compacto */
+  background: linear-gradient(180deg, var(--grafite), transparent);
+  margin-bottom: 10px;
+}
+
+/* Logo bem pequena e redonda */
+header .logo-wrap img {
+  width: 40px;        /* tamanho reduzido */
+  height: 40px;   
+  border-radius: 50%; /* deixa circular */
+  object-fit: cover;
+  display: block;
+}
+
+/* Container da logo + texto */
+header .logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+}
+
+/* Texto do estúdio */
+header .studio-title {
+  font-family: var(--font-title);
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1.1;
+  font-size: 1rem;
+}
+header .studio-sub {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.1;      
+}
+</style>
+
 </header>
 
 <main>
@@ -404,3 +449,4 @@ setInterval(()=>plusSlides(1),4000);
 
 </body>
 </html>
+
