@@ -16,8 +16,65 @@
     --whatsapp:#25D366;
     --card-alpha: rgba(255,255,255,0.04);
     --glass: rgba(255,255,255,0.03);
-  }
+    /* Galeria */
+.galeria-container {
+  max-width: 100%;
+  position: relative;
+  margin: auto;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(0,0,0,.6);
+}
 
+.galeria-slide img {
+  width: 100%;
+  border-radius: 14px;
+  object-fit: cover;
+  height: 260px;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 12px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 22px;
+  transition: .3s;
+}
+
+.next { right: 0; }
+.prev { left: 0; }
+
+.prev:hover, .next:hover {
+  background: rgba(0,0,0,.4);
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 4px;
+  background-color: #444;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.active, .dot:hover {
+  background-color: #fff;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1s;
+}
+
+@keyframes fade {
+  from { opacity: .4; }
+  to { opacity: 1; }
+}
+  }
   /* fundo interativo (ADICIONADO) */
   body::before {
     content: "";
@@ -59,6 +116,36 @@
   .studio-sub{font-size:0.78rem;color:var(--muted);margin-top:2px}
 
   main{padding:14px;}
+<!-- GALERIA DE FOTOS -->
+<div class="galeria-container">
+  <div class="galeria-slide fade">
+    <img src="midia/fotos/foto1.jpg">
+  </div>
+
+  <div class="galeria-slide fade">
+    <img src="midia/fotos/foto2.jpg">
+  </div>
+
+  <div class="galeria-slide fade">
+    <img src="midia/fotos/foto3.jpg">
+  </div>
+
+  <div class="galeria-slide fade">
+    <img src="midia/fotos/foto4.jpg">
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+  <span class="dot" onclick="currentSlide(4)"></span> 
+</div>
 
   /* STORIES (video scroller) */
   .stories {
@@ -276,6 +363,44 @@
 </footer>
 
 </body>
+  <script>
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n){
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n){
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n){
+  let i;
+  let slides = document.getElementsByClassName("galeria-slide");
+  let dots = document.getElementsByClassName("dot");
+
+  if(n > slides.length){ slideIndex = 1 }
+  if(n < 1){ slideIndex = slides.length }
+
+  for(i=0; i<slides.length; i++){
+    slides[i].style.display = "none";
+  }
+
+  for(i=0; i<dots.length; i++){
+    dots[i].classList.remove("active");
+  }
+
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].classList.add("active");
+}
+
+setInterval(()=>{
+  plusSlides(1);
+}, 4000);
+</script>
+
 </html>
+
 
 
