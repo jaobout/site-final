@@ -21,18 +21,18 @@
   --font-body: 'Nunito', system-ui, sans-serif;
 }
 
-/* Fundo animado com imagem + vinheta */
+/* Fundo com imagem */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: url("midia/fundo/meufundo.jpg") center/cover no-repeat fixed;
-  opacity: 0.15;  /* transparência do fundo */
+  background: url("midia/fundo/meufundo.jpg") center/cover no-repeat;
+  opacity: 0.13;
   z-index: -1;
-  filter: blur(1px); /* suaviza a imagem */
-  animation: moveBg 18s linear infinite alternate;
+  filter: blur(1px);
 }
 
+/* Vinheta escura */
 body::after {
   content: "";
   position: fixed;
@@ -42,18 +42,13 @@ body::after {
   pointer-events: none;
 }
 
-@keyframes moveBg {
-  0% { transform: scale(1) translateY(0); }
-  100% { transform: scale(1.08) translateY(-20px); }
-}
-
 /* Base */
 *{box-sizing:border-box;}
 body {
   margin: 0;
   font-family: var(--font-body);
   color: #fff;
-  background: linear-gradient(180deg,var(--bg),#000);
+  background: var(--bg);
 }
 
 h2 {
@@ -270,50 +265,6 @@ footer{text-align:center;color:var(--muted);padding:25px; font-size: .8rem;}
   </div>
 </header>
 
-<style>
-/* Header */
-header {
-  display: flex;
-  align-items: center;
-  padding: 12px 0;  /* compacto */
-  background: linear-gradient(180deg, var(--grafite), transparent);
-  margin-bottom: 10px;
-}
-
-/* Logo bem pequena e redonda */
-header .logo-wrap img {
-  width: 40px;        /* tamanho reduzido */
-  height: 40px;   
-  border-radius: 50%; /* deixa circular */
-  object-fit: cover;
-  display: block;
-}
-
-/* Container da logo + texto */
-header .logo-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 16px;
-}
-
-/* Texto do estúdio */
-header .studio-title {
-  font-family: var(--font-title);
-  font-weight: 900;
-  color: var(--gold);
-  line-height: 1.1;
-  font-size: 1rem;
-}
-header .studio-sub {
-  font-size: 0.75rem;
-  color: var(--muted);
-  line-height: 1.1;      
-}
-</style>
-
-</header>
-
 <main>
   <div class="content-container">
 
@@ -365,61 +316,70 @@ header .studio-sub {
         <div class="service-desc">Corte rápido e alinhado.</div>
         <div class="service-price">R$15</div>
       </a>
+
       <a class="card-service" href="agendar.html?servico=Corte%20Social">
         <img class="service-img" src="midia/fotos/foto2.jpg" alt="Corte Social">
         <h3 class="service-title">Corte Social</h3>
         <div class="service-desc">Clássico e bem polido.</div>
         <div class="service-price">R$25</div>
       </a>
+
       <a class="card-service" href="agendar.html?servico=Corte%20Disfarcado">
         <img class="service-img" src="midia/fotos/foto3.jpg" alt="Disfarçado">
         <h3 class="service-title">Corte Disfarcado</h3>
         <div class="service-desc">Degradê moderno.</div>
         <div class="service-price">R$35</div>
       </a>
+
       <a class="card-service" href="agendar.html?servico=Acabamento">
         <img class="service-img" src="midia/fotos/foto4.jpg" alt="Acabamento">
         <h3 class="service-title">Acabamento</h3>
         <div class="service-desc">Contornos e limpeza.</div>
         <div class="service-price">R$10</div>
       </a>
+
       <a class="card-service" href="agendar.html?servico=Barba%20Simples">
         <img class="service-img" src="midia/fotos/foto5.jpg" alt="Barba Simples">
         <h3 class="service-title">Barba Simples</h3>
         <div class="service-desc">Limpeza básica.</div>
         <div class="service-price">R$10</div>
       </a>
+
       <a class="card-service" href="agendar.html?servico=Barba%20Modelada">
         <img class="service-img" src="midia/fotos/foto6.jpg" alt="Barba Modelada">
         <h3 class="service-title">Barba Modelada</h3>
         <div class="service-desc">Design marcado.</div>
         <div class="service-price">R$15</div>
       </a>
+
       <a class="card-service" href="agendar.html?servico=Pigmentação">
         <img class="service-img" src="midia/fotos/foto7.jpg" alt="Pigmentação">
         <h3 class="service-title">Pigmentação</h3>
         <div class="service-desc">Reforço de cor.</div>
         <div class="service-price">R$10</div>
       </a>
+
       <a class="card-service" href="agendar.html?servico=Sobrancelha">
         <img class="service-img" src="midia/fotos/foto8.jpg" alt="Sobrancelha">
         <h3 class="service-title">Sobrancelha</h3>
         <div class="service-desc">Limpeza e definição.</div>
         <div class="service-price">R$5</div>
       </a>
+
       <a class="card-service" href="agendar.html?servico=Bigode">
         <img class="service-img" src="midia/fotos/foto9.jpg" alt="Bigode">
         <h3 class="service-title">Bigode</h3>
         <div class="service-desc">Acabamento fino.</div>
         <div class="service-price">R$5</div>
       </a>
+
       <a class="card-service" href="agendar.html?servico=Platinado">
         <img class="service-img" src="midia/fotos/foto10.jpg" alt="Platinado">
         <h3 class="service-title">Platinado</h3>
         <div class="service-desc">Processo detalhado.</div>
         <div class="service-price">Consultar</div>
       </a>
-      
+
     </div>
 
     <div class="action-row">
@@ -461,5 +421,3 @@ setInterval(()=>plusSlides(1),4000);
 
 </body>
 </html>
-
-
