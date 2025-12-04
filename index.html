@@ -26,11 +26,12 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: url("midia/fundo/meufundo.jpg") center/cover no-repeat;
-  opacity: 0.13;
+  background: url("midia/fundo/meufundo.jpg") center/cover no-repeat scroll;
+  opacity: 0.15;
   z-index: -1;
   filter: blur(1px);
-}
+  animation: moveBg 18s linear infinite alternate;
+ }
 
 /* Vinheta escura */
 body::after {
@@ -421,3 +422,4 @@ setInterval(()=>plusSlides(1),4000);
 
 </body>
 </html>
+
